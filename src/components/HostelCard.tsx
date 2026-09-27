@@ -28,6 +28,7 @@ interface HostelCardProps {
   isCompared: boolean;
   onToggleCompare: (hostel: Hostel) => void;
   onClaimHostel?: (hostel: Hostel) => void;
+  onContactHostel?: (hostel: Hostel) => void;
 }
 
 export const HostelCard: React.FC<HostelCardProps> = ({
@@ -37,6 +38,7 @@ export const HostelCard: React.FC<HostelCardProps> = ({
   isCompared,
   onToggleCompare,
   onClaimHostel,
+  onContactHostel,
 }) => {
   const hasValidPhoto = hostel.photos && hostel.photos.length > 0 && Boolean(hostel.photos[0].url);
 
@@ -276,16 +278,26 @@ export const HostelCard: React.FC<HostelCardProps> = ({
         </div>
       </div>
 
-      {/* Action Buttons: DYNAMICALLY RENDERED ONLY WHEN DATA EXISTS (Requirement 3) */}
+      {/* Action Buttons: DYNAMICALLY RENDERED ONLY WHEN DATA EXISTS (Requirement 3 + Lead Gen) */}
       <div className="p-4 sm:p-5 pt-0 bg-white">
-        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-neutral-100">
-          {/* View Details Button (Always available) */}
+        <div className="pt-2 border-t border-neutral-100">
+          {/* Primary Lead Action: Contact this Hostel */}
           <button
-            onClick={() => onViewDetails(hostel)}
-            className="flex-1 py-2 px-3 text-xs font-semibold text-neutral-900 bg-neutral-100 hover:bg-neutral-200 rounded-lg transition-colors cursor-pointer text-center"
+            onClick={() => onContactHostel?.(hostel)}
+            className="w-full mb-2 py-2.5 px-3 text-xs font-bold text-white bg-emerald-800 hover:bg-emerald-700 active:scale-98 rounded-lg shadow-sm transition-all cursor-pointer flex items-center justify-center gap-1.5"
           >
-            Details
+            <MessageCircle className="w-3.5 h-3.5 text-white" />
+            <span>Contact this Hostel</span>
           </button>
+
+          <div className="flex flex-wrap items-center gap-2">
+            {/* View Details Button (Always available) */}
+            <button
+              onClick={() => onViewDetails(hostel)}
+              className="flex-1 py-2 px-3 text-xs font-semibold text-neutral-900 bg-neutral-100 hover:bg-neutral-200 rounded-lg transition-colors cursor-pointer text-center"
+            >
+              View Details
+            </button>
 
           {/* Google Maps Button (Only if valid URL or coords exist) */}
           {(hostel.google_maps_url || (hostel.latitude && hostel.longitude)) && (
@@ -358,6 +370,7 @@ export const HostelCard: React.FC<HostelCardProps> = ({
           )}
         </div>
       </div>
-    </article>
-  );
+    </div>
+  </article>
+);
 };

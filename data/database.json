@@ -1740,5 +1740,173 @@
       "status": "Pending Review",
       "submitted_at": "2026-09-27T10:40:07.939Z"
     }
-  ]
+  ],
+  "leads": [
+    {
+      "lead_id": "LS-1047",
+      "hostel_id": "general",
+      "hostel_name": "General Lahore Hostel Inquiry",
+      "visitor_name": "Hamza Ali",
+      "visitor_phone": "03001234567",
+      "gender": "Boys",
+      "area": "Johar Town",
+      "budget": "PKR 15,000",
+      "room_type": "Double",
+      "requirements": [
+        "Wi-Fi",
+        "Mess"
+      ],
+      "source": "Lahore Student Stay",
+      "status": "New",
+      "notes": "",
+      "created_at": "2026-09-27T17:45:30.031Z",
+      "updated_at": "2026-09-27T17:45:30.031Z"
+    },
+    {
+      "lead_id": "LS-1041",
+      "hostel_id": "hostel-johar-heights-boys",
+      "hostel_name": "Johar Heights Boys Hostel",
+      "visitor_name": "Usman Tariq",
+      "visitor_phone": "0301-4567890",
+      "gender": "Boys",
+      "area": "Johar Town",
+      "budget": "PKR 15,000 - 20,000",
+      "room_type": "Double",
+      "requirements": [
+        "Wi-Fi",
+        "Mess",
+        "AC",
+        "Electricity Backup"
+      ],
+      "source": "Lahore Student Stay",
+      "status": "Converted",
+      "notes": "Student visited with brother. Confirmed Room 204 twin bed.",
+      "assigned_warden_name": "Warden Malik Asif",
+      "assigned_warden_phone": "0300-4123456",
+      "assigned_warden_whatsapp": "923004123456",
+      "assigned_at": "2026-09-24T14:30:00.000Z",
+      "lead_fee": 1500,
+      "fee_status": "Paid",
+      "created_at": "2026-09-24T10:15:00.000Z",
+      "updated_at": "2026-09-25T16:00:00.000Z"
+    },
+    {
+      "lead_id": "LS-1042",
+      "hostel_id": "hostel-fatima-jinnah-girls",
+      "hostel_name": "Fatima Jinnah Executive Girls Hostel",
+      "visitor_name": "Ayesha Siddiqui",
+      "visitor_phone": "0322-8765432",
+      "gender": "Girls",
+      "area": "Garden Town",
+      "budget": "PKR 18,000 - 25,000",
+      "room_type": "Single",
+      "requirements": [
+        "Wi-Fi",
+        "Mess",
+        "AC",
+        "Attached Bathroom",
+        "Furnished"
+      ],
+      "source": "Lahore Student Stay",
+      "status": "Assigned",
+      "notes": "Father requested ground floor room. Dispatched to Warden Farzana.",
+      "assigned_warden_name": "Warden Farzana Begum",
+      "assigned_warden_phone": "0321-9876543",
+      "assigned_warden_whatsapp": "923219876543",
+      "assigned_at": "2026-09-26T11:20:00.000Z",
+      "lead_fee": 2000,
+      "fee_status": "Pending",
+      "created_at": "2026-09-26T09:40:00.000Z",
+      "updated_at": "2026-09-26T11:20:00.000Z"
+    },
+    {
+      "lead_id": "LS-1043",
+      "hostel_id": "hostel-al-rehman-barkat",
+      "hostel_name": "Al-Rehman Boys Hostel Barkat Market",
+      "visitor_name": "Bilal Ahmad",
+      "visitor_phone": "0333-5551234",
+      "gender": "Boys",
+      "area": "New Garden Town",
+      "budget": "Under PKR 15,000",
+      "room_type": "Triple",
+      "requirements": [
+        "Wi-Fi",
+        "Mess",
+        "Furnished"
+      ],
+      "source": "Lahore Student Stay",
+      "status": "Contacted",
+      "notes": "Contacted student. Joining PU in October. Scheduled visit for tomorrow.",
+      "created_at": "2026-09-26T16:05:00.000Z",
+      "updated_at": "2026-09-26T17:10:00.000Z"
+    },
+    {
+      "lead_id": "LS-1044",
+      "hostel_id": "hostel-model-town-scholars",
+      "hostel_name": "Model Town Scholars Boys Hostel",
+      "visitor_name": "Hamza Sheikh",
+      "visitor_phone": "0345-1239876",
+      "gender": "Boys",
+      "area": "Model Town",
+      "budget": "PKR 14,000 - 18,000",
+      "room_type": "Double",
+      "requirements": [
+        "Wi-Fi",
+        "Mess",
+        "Attached Bathroom",
+        "Electricity Backup"
+      ],
+      "source": "Lahore Student Stay",
+      "status": "New",
+      "notes": "Inquiry via guided search. Needs room from next week.",
+      "created_at": "2026-09-27T08:15:00.000Z",
+      "updated_at": "2026-09-27T08:15:00.000Z"
+    },
+    {
+      "lead_id": "LS-1045",
+      "hostel_id": "hostel-zainab-muslim-town",
+      "hostel_name": "Zainab Girls Hostel Muslim Town",
+      "visitor_name": "Fatima Noor",
+      "visitor_phone": "0308-7776655",
+      "gender": "Girls",
+      "area": "Muslim Town",
+      "budget": "PKR 12,000 - 16,000",
+      "room_type": "Shared",
+      "requirements": [
+        "Wi-Fi",
+        "Mess",
+        "Attached Bathroom"
+      ],
+      "source": "Lahore Student Stay",
+      "status": "New",
+      "notes": "Looking for accommodation near Wahdat Road / PU new campus.",
+      "created_at": "2026-09-27T09:30:00.000Z",
+      "updated_at": "2026-09-27T09:30:00.000Z"
+    },
+    {
+      "lead_id": "LS-1046",
+      "hostel_id": "hostel-gulberg-executive-boys",
+      "hostel_name": "Gulberg Executive Boys Hostel",
+      "visitor_name": "Saad Rafiq",
+      "visitor_phone": "0312-3344556",
+      "gender": "Boys",
+      "area": "Gulberg III",
+      "budget": "Above PKR 22,000",
+      "room_type": "Single",
+      "requirements": [
+        "Wi-Fi",
+        "Mess",
+        "AC",
+        "Attached Bathroom",
+        "Parking",
+        "Electricity Backup"
+      ],
+      "source": "Lahore Student Stay",
+      "status": "New",
+      "notes": "Internee at software house on MM Alam Road. Urgently looking for single room.",
+      "created_at": "2026-09-27T10:05:00.000Z",
+      "updated_at": "2026-09-27T10:05:00.000Z"
+    }
+  ],
+  "leadCounter": 1047
 }

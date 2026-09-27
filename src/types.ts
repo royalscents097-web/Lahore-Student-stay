@@ -177,6 +177,45 @@ export interface UniversityItem {
   address: string;
 }
 
+export type LeadStatus = 'New' | 'Contacted' | 'Assigned' | 'Converted' | 'Not Converted' | 'Closed';
+
+export interface LeadItem {
+  lead_id: string; // Unique ID, e.g. "LS-1047"
+  hostel_id: string;
+  hostel_name: string;
+  visitor_name: string;
+  visitor_phone: string;
+  gender: GenderType;
+  area: string;
+  budget: string;
+  room_type: string;
+  requirements: string[]; // e.g. ['Wi-Fi', 'Mess', 'AC', 'Furnished', 'Attached Bathroom', 'Parking', 'Electricity Backup']
+  source: string; // Fixed to "Lahore Student Stay"
+  status: LeadStatus;
+  notes?: string;
+  assigned_warden_name?: string;
+  assigned_warden_phone?: string;
+  assigned_warden_whatsapp?: string;
+  assigned_at?: string;
+  lead_fee?: number; // Fee in PKR, e.g. 1500
+  fee_status?: 'Pending' | 'Paid' | 'Waived';
+  created_at: string;
+  updated_at: string;
+}
+
+export interface LeadMetrics {
+  totalLeads: number;
+  newLeads: number;
+  contacted: number;
+  assigned: number;
+  converted: number;
+  notConverted: number;
+  closed: number;
+  conversionRate: number;
+  totalFeesEarned: number;
+  pendingFees: number;
+}
+
 export interface FilterState {
   gender: 'All' | 'Boys' | 'Girls';
   area: string;
@@ -212,4 +251,7 @@ export interface AdminStats {
   totalWhatsappClicks: number;
   totalMapClicks: number;
   totalPhoneClicks: number;
+  totalLeads?: number;
+  newLeads?: number;
+  convertedLeads?: number;
 }

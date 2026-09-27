@@ -18,8 +18,16 @@ import {
   Search,
   Check,
   X,
+  Users,
+  PhoneCall,
+  UserCheck,
+  DollarSign,
+  Send,
+  ArrowRight,
+  UserPlus,
+  Filter,
 } from 'lucide-react';
-import { Hostel, AreaItem, UniversityItem, AdminStats } from '../types';
+import { Hostel, AreaItem, UniversityItem, AdminStats, LeadItem, LeadMetrics, LeadStatus } from '../types';
 
 interface AdminPanelProps {
   isOpen: boolean;
@@ -41,7 +49,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   const [token, setToken] = useState<string>(() => localStorage.getItem('lss_admin_token') || '');
   const [passwordInput, setPasswordInput] = useState('');
   const [loginError, setLoginError] = useState('');
-  const [activeTab, setActiveTab] = useState<'hostels' | 'add' | 'csv' | 'taxonomy'>('hostels');
+  const [activeTab, setActiveTab] = useState<'hostels' | 'leads' | 'csv' | 'taxonomy'>('leads');
   
   // Dashboard data
   const [stats, setStats] = useState<AdminStats | null>(null);
@@ -51,6 +59,32 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   const [genderFilter, setGenderFilter] = useState('All');
   const [loading, setLoading] = useState(false);
   const [actionSuccess, setActionSuccess] = useState('');
+
+  // Leads Management State (Section 3, 4, 5)
+  const [leadsList, setLeadsList] = useState<LeadItem[]>([]);
+  const [leadMetrics, setLeadMetrics] = useState<LeadMetrics | null>(null);
+  const [leadStatusFilter, setLeadStatusFilter] = useState<string>('All');
+  const [leadGenderFilter, setLeadGenderFilter] = useState<string>('All');
+  const [leadSearch, setLeadSearch] = useState<string>('');
+  const [selectedLeadForAssign, setSelectedLeadForAssign] = useState<LeadItem | null>(null);
+  const [assignWardenName, setAssignWardenName] = useState<string>('');
+  const [assignWardenPhone, setAssignWardenPhone] = useState<string>('');
+  const [assignLeadFee, setAssignLeadFee] = useState<number>(1500);
+  const [assignFeeStatus, setAssignFeeStatus] = useState<'Pending' | 'Paid' | 'Waived'>('Pending');
+  const [assignNotes, setAssignNotes] = useState<string>('');
+  const [manualLeadModalOpen, setManualLeadModalOpen] = useState(false);
+  const [manualLeadData, setManualLeadData] = useState({
+    visitor_name: '',
+    visitor_phone: '',
+    hostel_id: '',
+    hostel_name: '',
+    gender: 'Boys' as 'Boys' | 'Girls',
+    area: 'Johar Town',
+    budget: 'PKR 12,000 – 18,000',
+    room_type: 'Double',
+    requirements: ['Wi-Fi', 'Mess'],
+    notes: '',
+  });
 
   // Editing state
   const [editingHostel, setEditingHostel] = useState<Hostel | null>(null);
@@ -90,10 +124,232 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       if (hostelsData.success) {
         setHostelsList(hostelsData.data);
       }
+
+      // Fetch Leads
+      const leadsRes = await fetch('/api/admin/leads', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const leadsData = await leadsRes.json();
+      if (leadsData.success) {
+        setLeadsList(leadsData.data || []);
+        setLeadMetrics(leadsData.metrics || null);
+      }
     } catch (err) {
       console.error('Admin fetch error:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Lead Status Change Handler (Section 4: Do NOT automatically mark as Converted)
+  const handleUpdateLeadStatus = async (leadId: string, newStatus: LeadStatus) => {
+    try {
+      const res = await fetch(`/api/admin/leads/${leadId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        triggerToast(`Lead ${leadId} status set to "${newStatus}"`);
+        setLeadsList((prev) =>
+          prev.map((l) => (l.lead_id === leadId ? { ...l, status: newStatus, updated_at: new Date().toISOString() } : l))
+        );
+        fetchAdminData();
+      } else {
+        alert(data.error || 'Failed to update lead status');
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Open Warden Assignment Modal (Section 5)
+  const handleOpenAssignModal = (lead: LeadItem) => {
+    setSelectedLeadForAssign(lead);
+    setAssignWardenName(lead.assigned_warden_name || '');
+    setAssignWardenPhone(lead.assigned_warden_phone || '');
+    setAssignLeadFee(lead.lead_fee || 1500);
+    setAssignFeeStatus(lead.fee_status || 'Pending');
+    setAssignNotes(lead.notes || '');
+  };
+
+  // Save Warden Assignment & update status to 'Assigned'
+  const handleSaveWardenAssignment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedLeadForAssign) return;
+
+    try {
+      const res = await fetch(`/api/admin/leads/${selectedLeadForAssign.lead_id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          status: 'Assigned',
+          assigned_warden_name: assignWardenName,
+          assigned_warden_phone: assignWardenPhone,
+          assigned_warden_whatsapp: assignWardenPhone.replace(/[^0-9]/g, ''),
+          lead_fee: assignLeadFee,
+          fee_status: assignFeeStatus,
+          notes: assignNotes,
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        triggerToast(`Lead ${selectedLeadForAssign.lead_id} assigned to ${assignWardenName || 'Warden'}`);
+        setSelectedLeadForAssign(null);
+        fetchAdminData();
+      } else {
+        alert(data.error || 'Failed to assign warden');
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Dispatch Lead to Warden on WhatsApp
+  const handleDispatchWardenWhatsApp = (lead: LeadItem) => {
+    const waPhone = (lead.assigned_warden_phone || lead.assigned_warden_whatsapp || '').replace(/[^0-9]/g, '');
+    const cleanWa = waPhone.startsWith('03') ? '92' + waPhone.substring(1) : waPhone;
+
+    const message = encodeURIComponent(
+      `Assalam-o-Alaikum,\n` +
+      `*Assigned Student Lead from Lahore Student Stay:*\n\n` +
+      `• Lead Ref: *${lead.lead_id}*\n` +
+      `• Student: *${lead.visitor_name}*\n` +
+      `• Contact: *${lead.visitor_phone}*\n` +
+      `• Category: *${lead.gender} Hostel*\n` +
+      `• Preferred Hostel: *${lead.hostel_name}*\n` +
+      `• Preferred Area: *${lead.area}*\n` +
+      `• Budget: *${lead.budget}*\n` +
+      `• Room Type: *${lead.room_type}*\n` +
+      `• Requirements: ${lead.requirements.join(', ')}\n` +
+      (lead.notes ? `• Student Notes: ${lead.notes}\n` : '') +
+      `\nPlease reach out to the student immediately and confirm room availability.`
+    );
+
+    if (cleanWa) {
+      window.open(`https://wa.me/${cleanWa}?text=${message}`, '_blank', 'noopener,noreferrer');
+    } else {
+      window.open(`https://wa.me/?text=${message}`, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  // Delete Lead Handler
+  const handleDeleteLead = async (leadId: string) => {
+    if (!window.confirm(`Permanently remove lead ${leadId}?`)) return;
+    try {
+      const res = await fetch(`/api/admin/leads/${leadId}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        triggerToast(`Lead ${leadId} deleted`);
+        setLeadsList((prev) => prev.filter((l) => l.lead_id !== leadId));
+        fetchAdminData();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Export Leads as CSV
+  const handleExportLeadsCsv = () => {
+    const headers = [
+      'lead_id',
+      'visitor_name',
+      'visitor_phone',
+      'gender',
+      'hostel_name',
+      'area',
+      'budget',
+      'room_type',
+      'requirements',
+      'status',
+      'assigned_warden_name',
+      'assigned_warden_phone',
+      'lead_fee',
+      'fee_status',
+      'created_at',
+      'source',
+    ];
+
+    const rows = leadsList.map((l) => [
+      l.lead_id,
+      `"${l.visitor_name.replace(/"/g, '""')}"`,
+      `"${l.visitor_phone}"`,
+      l.gender,
+      `"${(l.hostel_name || '').replace(/"/g, '""')}"`,
+      `"${l.area}"`,
+      `"${l.budget}"`,
+      `"${l.room_type}"`,
+      `"${l.requirements.join('; ')}"`,
+      l.status,
+      `"${l.assigned_warden_name || ''}"`,
+      `"${l.assigned_warden_phone || ''}"`,
+      l.lead_fee || 0,
+      l.fee_status || 'Pending',
+      l.created_at,
+      `"${l.source}"`,
+    ]);
+
+    const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `lahore_student_stay_leads_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+    triggerToast('Leads CSV downloaded');
+  };
+
+  // Create Manual Lead Handler
+  const handleCreateManualLead = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!manualLeadData.visitor_name || !manualLeadData.visitor_phone) {
+      alert('Student Name and Phone are required.');
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/admin/leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(manualLeadData),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        triggerToast(`Lead ${data.lead_id} manually created`);
+        setManualLeadModalOpen(false);
+        setManualLeadData({
+          visitor_name: '',
+          visitor_phone: '',
+          hostel_id: '',
+          hostel_name: '',
+          gender: 'Boys',
+          area: 'Johar Town',
+          budget: 'PKR 12,000 – 18,000',
+          room_type: 'Double',
+          requirements: ['Wi-Fi', 'Mess'],
+          notes: '',
+        });
+        fetchAdminData();
+      } else {
+        alert(data.error || 'Failed to create lead');
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -334,6 +590,24 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     return true;
   });
 
+  // Filter student leads list for admin view
+  const filteredLeads = leadsList.filter((l) => {
+    if (leadStatusFilter !== 'All' && l.status !== leadStatusFilter) return false;
+    if (leadGenderFilter !== 'All' && l.gender !== leadGenderFilter) return false;
+    if (leadSearch.trim()) {
+      const q = leadSearch.toLowerCase().trim();
+      return (
+        l.lead_id.toLowerCase().includes(q) ||
+        l.visitor_name.toLowerCase().includes(q) ||
+        l.visitor_phone.toLowerCase().includes(q) ||
+        (l.hostel_name || '').toLowerCase().includes(q) ||
+        l.area.toLowerCase().includes(q) ||
+        (l.assigned_warden_name || '').toLowerCase().includes(q)
+      );
+    }
+    return true;
+  });
+
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-fade-in">
       <div className="relative w-full max-w-6xl bg-white rounded-2xl shadow-2xl overflow-hidden my-4 border border-neutral-200 flex flex-col max-h-[92vh]">
@@ -436,16 +710,20 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   <span className="text-base font-extrabold text-amber-800 tabular-nums">{stats.pendingVerification}</span>
                 </div>
                 <div className="p-2.5 bg-white rounded-lg border border-neutral-200">
-                  <span className="text-neutral-500 block text-[10px] uppercase font-bold">Available</span>
-                  <span className="text-base font-extrabold text-neutral-900 tabular-nums">{stats.available}</span>
+                  <span className="text-purple-700 block text-[10px] uppercase font-bold">Total Leads</span>
+                  <span className="text-base font-extrabold text-purple-900 tabular-nums">{leadsList.length}</span>
                 </div>
                 <div className="p-2.5 bg-white rounded-lg border border-neutral-200">
-                  <span className="text-neutral-500 block text-[10px] uppercase font-bold">Total Views</span>
-                  <span className="text-base font-extrabold text-neutral-900 tabular-nums">{stats.totalViews}</span>
+                  <span className="text-amber-600 block text-[10px] uppercase font-bold">New Leads</span>
+                  <span className="text-base font-extrabold text-amber-700 tabular-nums">
+                    {leadsList.filter((l) => l.status === 'New').length}
+                  </span>
                 </div>
                 <div className="p-2.5 bg-white rounded-lg border border-neutral-200">
-                  <span className="text-neutral-500 block text-[10px] uppercase font-bold">WA Clicks</span>
-                  <span className="text-base font-extrabold text-emerald-800 tabular-nums">{stats.totalWhatsappClicks}</span>
+                  <span className="text-emerald-700 block text-[10px] uppercase font-bold">Converted</span>
+                  <span className="text-base font-extrabold text-emerald-800 tabular-nums">
+                    {leadsList.filter((l) => l.status === 'Converted').length}
+                  </span>
                 </div>
               </div>
             )}
@@ -454,10 +732,26 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             <div className="flex items-center justify-between px-6 border-b border-neutral-200 bg-white shrink-0">
               <div className="flex gap-4 text-xs font-semibold">
                 <button
+                  onClick={() => setActiveTab('leads')}
+                  className={`py-3.5 border-b-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
+                    activeTab === 'leads'
+                      ? 'border-emerald-700 text-neutral-900 font-bold'
+                      : 'border-transparent text-neutral-500 hover:text-neutral-800'
+                  }`}
+                >
+                  <Users className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>Student Leads</span>
+                  {leadsList.filter((l) => l.status === 'New').length > 0 && (
+                    <span className="px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500 text-white leading-none">
+                      {leadsList.filter((l) => l.status === 'New').length} New
+                    </span>
+                  )}
+                </button>
+                <button
                   onClick={() => setActiveTab('hostels')}
                   className={`py-3.5 border-b-2 transition-colors cursor-pointer ${
                     activeTab === 'hostels'
-                      ? 'border-emerald-700 text-neutral-900'
+                      ? 'border-emerald-700 text-neutral-900 font-bold'
                       : 'border-transparent text-neutral-500 hover:text-neutral-800'
                   }`}
                 >
@@ -467,7 +761,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   onClick={() => setActiveTab('csv')}
                   className={`py-3.5 border-b-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
                     activeTab === 'csv'
-                      ? 'border-emerald-700 text-neutral-900'
+                      ? 'border-emerald-700 text-neutral-900 font-bold'
                       : 'border-transparent text-neutral-500 hover:text-neutral-800'
                   }`}
                 >
@@ -478,7 +772,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   onClick={() => setActiveTab('taxonomy')}
                   className={`py-3.5 border-b-2 transition-colors cursor-pointer ${
                     activeTab === 'taxonomy'
-                      ? 'border-emerald-700 text-neutral-900'
+                      ? 'border-emerald-700 text-neutral-900 font-bold'
                       : 'border-transparent text-neutral-500 hover:text-neutral-800'
                   }`}
                 >
@@ -487,14 +781,34 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               </div>
 
               <div className="flex items-center gap-2">
-                <button
-                  onClick={() => handleExport('csv')}
-                  className="px-3 py-1.5 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 rounded-md text-xs font-medium inline-flex items-center gap-1 cursor-pointer"
-                  title="Export database as CSV"
-                >
-                  <Download className="w-3 h-3" />
-                  <span>Export CSV</span>
-                </button>
+                {activeTab === 'leads' ? (
+                  <>
+                    <button
+                      onClick={() => setManualLeadModalOpen(true)}
+                      className="px-3 py-1.5 bg-emerald-800 hover:bg-emerald-700 text-white rounded-md text-xs font-semibold inline-flex items-center gap-1 cursor-pointer shadow-sm"
+                    >
+                      <UserPlus className="w-3.5 h-3.5" />
+                      <span>+ Log New Lead</span>
+                    </button>
+                    <button
+                      onClick={handleExportLeadsCsv}
+                      className="px-3 py-1.5 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 rounded-md text-xs font-medium inline-flex items-center gap-1 cursor-pointer"
+                      title="Export leads as CSV"
+                    >
+                      <Download className="w-3 h-3" />
+                      <span>Export Leads</span>
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => handleExport('csv')}
+                    className="px-3 py-1.5 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 rounded-md text-xs font-medium inline-flex items-center gap-1 cursor-pointer"
+                    title="Export database as CSV"
+                  >
+                    <Download className="w-3 h-3" />
+                    <span>Export CSV</span>
+                  </button>
+                )}
                 <button
                   onClick={fetchAdminData}
                   className="p-1.5 text-neutral-500 hover:text-neutral-900 rounded-md cursor-pointer"
@@ -504,6 +818,346 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 </button>
               </div>
             </div>
+
+            {/* Tab 0: Student Leads Management (Business Model & Lead Generation MVP) */}
+            {activeTab === 'leads' && (
+              <div className="flex-1 overflow-y-auto p-6 space-y-5">
+                {/* Lead Metrics KPI Strip */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 text-xs">
+                  <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200">
+                    <span className="text-neutral-500 block text-[10px] uppercase font-bold">Total Inquiries</span>
+                    <span className="text-lg font-extrabold text-neutral-900 tabular-nums">
+                      {leadMetrics?.totalLeads ?? leadsList.length}
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-amber-50 rounded-xl border border-amber-200">
+                    <span className="text-amber-800 block text-[10px] uppercase font-bold">New Leads</span>
+                    <span className="text-lg font-extrabold text-amber-800 tabular-nums">
+                      {leadMetrics?.newLeads ?? leadsList.filter((l) => l.status === 'New').length}
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-indigo-50 rounded-xl border border-indigo-200">
+                    <span className="text-indigo-800 block text-[10px] uppercase font-bold">Contacted</span>
+                    <span className="text-lg font-extrabold text-indigo-800 tabular-nums">
+                      {leadMetrics?.contacted ?? leadsList.filter((l) => l.status === 'Contacted').length}
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-purple-50 rounded-xl border border-purple-200">
+                    <span className="text-purple-800 block text-[10px] uppercase font-bold">Assigned to Warden</span>
+                    <span className="text-lg font-extrabold text-purple-800 tabular-nums">
+                      {leadMetrics?.assigned ?? leadsList.filter((l) => l.status === 'Assigned').length}
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+                    <span className="text-emerald-800 block text-[10px] uppercase font-bold">Converted</span>
+                    <span className="text-lg font-extrabold text-emerald-800 tabular-nums">
+                      {leadMetrics?.converted ?? leadsList.filter((l) => l.status === 'Converted').length}
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-white rounded-xl border border-neutral-200">
+                    <span className="text-neutral-500 block text-[10px] uppercase font-bold">Conversion Rate</span>
+                    <span className="text-lg font-extrabold text-neutral-900 tabular-nums">
+                      {leadMetrics?.conversionRate ?? 0}%
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-emerald-900 text-white rounded-xl">
+                    <span className="text-emerald-300 block text-[10px] uppercase font-bold">Earned Lead Fees</span>
+                    <span className="text-base font-extrabold tabular-nums">
+                      PKR {leadMetrics?.totalFeesEarned?.toLocaleString() ?? 0}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Filter & Search Bar */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+                  {/* Search */}
+                  <div className="relative flex-1 max-w-md">
+                    <Search className="w-4 h-4 absolute left-3 top-2.5 text-neutral-400" />
+                    <input
+                      type="text"
+                      value={leadSearch}
+                      onChange={(e) => setLeadSearch(e.target.value)}
+                      placeholder="Search student name, phone, lead ID (e.g. LS-1047), or hostel..."
+                      className="w-full pl-9 pr-3 py-2 text-xs bg-neutral-50 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-700"
+                    />
+                  </div>
+
+                  {/* Category Filter */}
+                  <div className="flex items-center gap-2">
+                    <select
+                      value={leadGenderFilter}
+                      onChange={(e) => setLeadGenderFilter(e.target.value)}
+                      className="px-3 py-2 text-xs bg-neutral-50 border border-neutral-300 rounded-lg font-medium"
+                    >
+                      <option value="All">All Categories (Boys & Girls)</option>
+                      <option value="Boys">Boys Hostels Only</option>
+                      <option value="Girls">Girls Hostels Only</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Status Tabs */}
+                <div className="flex flex-wrap items-center gap-1.5 border-b border-neutral-200 pb-2">
+                  {(['All', 'New', 'Contacted', 'Assigned', 'Converted', 'Not Converted', 'Closed'] as const).map(
+                    (st) => {
+                      const count =
+                        st === 'All' ? leadsList.length : leadsList.filter((l) => l.status === st).length;
+                      const isActive = leadStatusFilter === st;
+                      return (
+                        <button
+                          key={st}
+                          type="button"
+                          onClick={() => setLeadStatusFilter(st)}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer flex items-center gap-1.5 ${
+                            isActive
+                              ? 'bg-neutral-900 text-white'
+                              : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700'
+                          }`}
+                        >
+                          <span>{st}</span>
+                          <span
+                            className={`px-1.5 py-0.2 rounded-full text-[10px] ${
+                              isActive ? 'bg-neutral-700 text-white' : 'bg-neutral-200 text-neutral-600'
+                            }`}
+                          >
+                            {count}
+                          </span>
+                        </button>
+                      );
+                    }
+                  )}
+                </div>
+
+                {/* Leads List / Cards */}
+                {filteredLeads.length === 0 ? (
+                  <div className="p-12 text-center bg-neutral-50 rounded-xl border border-neutral-200">
+                    <Users className="w-8 h-8 text-neutral-400 mx-auto mb-2" />
+                    <h4 className="text-sm font-bold text-neutral-800">No leads found</h4>
+                    <p className="text-xs text-neutral-500 mt-1">
+                      No customer leads match the selected filter criteria.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {filteredLeads.map((lead) => {
+                      const statusColor =
+                        lead.status === 'New'
+                          ? 'bg-amber-100 text-amber-900 border-amber-300'
+                          : lead.status === 'Contacted'
+                          ? 'bg-indigo-100 text-indigo-900 border-indigo-300'
+                          : lead.status === 'Assigned'
+                          ? 'bg-purple-100 text-purple-900 border-purple-300'
+                          : lead.status === 'Converted'
+                          ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
+                          : lead.status === 'Not Converted'
+                          ? 'bg-rose-50 text-rose-800 border-rose-200'
+                          : 'bg-neutral-100 text-neutral-700 border-neutral-300';
+
+                      return (
+                        <div
+                          key={lead.lead_id}
+                          className="bg-white rounded-xl border border-neutral-200 p-4 sm:p-5 shadow-sm hover:border-neutral-300 transition-all flex flex-col lg:flex-row lg:items-center justify-between gap-4"
+                        >
+                          {/* Left Column: Lead Info */}
+                          <div className="space-y-2 flex-1">
+                            <div className="flex flex-wrap items-center gap-2">
+                              {/* Lead Reference ID */}
+                              <span className="font-mono text-xs font-extrabold px-2.5 py-1 bg-neutral-900 text-white rounded-md tracking-wider">
+                                {lead.lead_id}
+                              </span>
+
+                              <span
+                                className={`px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider ${
+                                  lead.gender === 'Girls' ? 'bg-rose-100 text-rose-800' : 'bg-emerald-100 text-emerald-800'
+                                }`}
+                              >
+                                {lead.gender} Hostel
+                              </span>
+
+                              <span className="text-xs text-neutral-400">·</span>
+                              <span className="text-xs text-neutral-500">
+                                {new Date(lead.created_at).toLocaleDateString('en-PK', {
+                                  month: 'short',
+                                  day: 'numeric',
+                                  hour: '2-digit',
+                                  minute: '2-digit',
+                                })}
+                              </span>
+
+                              <span className="text-xs text-neutral-400">·</span>
+                              <span className="text-[11px] text-neutral-500 font-medium">
+                                Source: {lead.source}
+                              </span>
+                            </div>
+
+                            {/* Student Details & Direct Contacts */}
+                            <div className="flex flex-wrap items-baseline gap-3">
+                              <h4 className="text-base font-bold text-neutral-900">
+                                {lead.visitor_name}
+                              </h4>
+
+                              <div className="flex items-center gap-1.5 text-xs">
+                                <a
+                                  href={`tel:${lead.visitor_phone}`}
+                                  className="font-mono font-semibold text-neutral-800 hover:text-emerald-800 bg-neutral-100 hover:bg-neutral-200 px-2 py-0.5 rounded transition-colors inline-flex items-center gap-1"
+                                  title="Call Student"
+                                >
+                                  <PhoneCall className="w-3 h-3 text-emerald-700" />
+                                  <span>{lead.visitor_phone}</span>
+                                </a>
+
+                                <button
+                                  onClick={() => {
+                                    const wa = lead.visitor_phone.replace(/[^0-9]/g, '');
+                                    const cleanWa = wa.startsWith('03') ? '92' + wa.substring(1) : wa;
+                                    const msg = encodeURIComponent(
+                                      `Assalam-o-Alaikum ${lead.visitor_name}, regarding your student hostel inquiry (${lead.lead_id}) for ${lead.hostel_name} on Lahore Student Stay:`
+                                    );
+                                    window.open(`https://wa.me/${cleanWa}?text=${msg}`, '_blank', 'noopener,noreferrer');
+                                  }}
+                                  className="text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-2 py-0.5 rounded transition-colors inline-flex items-center gap-1 font-semibold cursor-pointer"
+                                  title="Message on WhatsApp"
+                                >
+                                  <MessageCircle className="w-3 h-3 text-emerald-700" />
+                                  <span>WhatsApp</span>
+                                </button>
+                              </div>
+                            </div>
+
+                            {/* Preferred Accommodation & Requirements */}
+                            <div className="text-xs text-neutral-600 flex flex-wrap items-center gap-x-3 gap-y-1">
+                              <span>
+                                Hostel: <strong className="text-neutral-900 font-semibold">{lead.hostel_name}</strong> ({lead.area})
+                              </span>
+                              <span className="text-neutral-300">·</span>
+                              <span>
+                                Budget: <strong className="text-neutral-800">{lead.budget}</strong>
+                              </span>
+                              <span className="text-neutral-300">·</span>
+                              <span>
+                                Room: <strong className="text-neutral-800">{lead.room_type}</strong>
+                              </span>
+                            </div>
+
+                            {/* Requirements tags */}
+                            {lead.requirements && lead.requirements.length > 0 && (
+                              <div className="flex flex-wrap gap-1 pt-0.5">
+                                {lead.requirements.map((r) => (
+                                  <span
+                                    key={r}
+                                    className="px-2 py-0.5 text-[10px] font-medium bg-neutral-100 text-neutral-700 rounded"
+                                  >
+                                    {r}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+
+                            {lead.notes && (
+                              <div className="text-xs text-neutral-500 italic bg-neutral-50 p-2 rounded border border-neutral-100">
+                                &quot;{lead.notes}&quot;
+                              </div>
+                            )}
+
+                            {/* Warden Assignment Box */}
+                            {lead.assigned_warden_name ? (
+                              <div className="p-2.5 bg-purple-50/70 border border-purple-200 rounded-lg text-xs flex flex-wrap items-center justify-between gap-2">
+                                <div>
+                                  <span className="text-[10px] uppercase font-bold text-purple-800 block">
+                                    Assigned Warden
+                                  </span>
+                                  <span className="font-bold text-neutral-900">
+                                    {lead.assigned_warden_name}
+                                  </span>
+                                  {lead.assigned_warden_phone && (
+                                    <span className="text-neutral-600 ml-1.5 font-mono text-[11px]">
+                                      ({lead.assigned_warden_phone})
+                                    </span>
+                                  )}
+                                  {lead.lead_fee ? (
+                                    <span className="ml-2 text-emerald-800 font-semibold">
+                                      · Fee: PKR {lead.lead_fee.toLocaleString()} ({lead.fee_status || 'Pending'})
+                                    </span>
+                                  ) : null}
+                                </div>
+
+                                <div className="flex items-center gap-1.5">
+                                  <button
+                                    onClick={() => handleDispatchWardenWhatsApp(lead)}
+                                    className="px-2.5 py-1 bg-emerald-700 hover:bg-emerald-800 text-white rounded text-[11px] font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+                                    title="Send Lead Details to Warden via WhatsApp"
+                                  >
+                                    <Send className="w-3 h-3" />
+                                    <span>Dispatch to Warden</span>
+                                  </button>
+                                  <button
+                                    onClick={() => handleOpenAssignModal(lead)}
+                                    className="px-2 py-1 bg-white hover:bg-neutral-100 text-neutral-700 border border-neutral-300 rounded text-[11px] font-medium cursor-pointer"
+                                  >
+                                    Edit
+                                  </button>
+                                </div>
+                              </div>
+                            ) : null}
+                          </div>
+
+                          {/* Right Column: Status & Assignment Action */}
+                          <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end justify-between gap-3 shrink-0 lg:w-56 pt-2 lg:pt-0 border-t lg:border-t-0 border-neutral-100">
+                            {/* Status Selector Dropdown */}
+                            <div className="w-full">
+                              <label className="block text-[10px] uppercase font-bold text-neutral-400 mb-1">
+                                Lead Status
+                              </label>
+                              <select
+                                value={lead.status}
+                                onChange={(e) =>
+                                  handleUpdateLeadStatus(lead.lead_id, e.target.value as LeadStatus)
+                                }
+                                className={`w-full px-2.5 py-1.5 rounded-lg text-xs font-bold border cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-700 ${statusColor}`}
+                              >
+                                <option value="New">Status: New</option>
+                                <option value="Contacted">Status: Contacted</option>
+                                <option value="Assigned">Status: Assigned</option>
+                                <option value="Converted">Status: Converted ★</option>
+                                <option value="Not Converted">Status: Not Converted</option>
+                                <option value="Closed">Status: Closed</option>
+                              </select>
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex items-center gap-1.5 w-full justify-end">
+                              {!lead.assigned_warden_name && (
+                                <button
+                                  onClick={() => handleOpenAssignModal(lead)}
+                                  className="flex-1 py-1.5 px-3 bg-purple-700 hover:bg-purple-800 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1 transition-colors cursor-pointer"
+                                >
+                                  <UserCheck className="w-3.5 h-3.5" />
+                                  <span>Assign Warden</span>
+                                </button>
+                              )}
+
+                              <button
+                                onClick={() => handleDeleteLead(lead.lead_id)}
+                                className="p-1.5 text-neutral-400 hover:text-red-700 rounded-lg hover:bg-red-50 transition-colors cursor-pointer"
+                                title="Delete Lead Record"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Tab 1: Hostels Table */}
             {activeTab === 'hostels' && (
@@ -994,6 +1648,339 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     className="px-4 py-1.5 bg-neutral-900 text-white font-semibold rounded cursor-pointer"
                   >
                     Save Changes
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* Modal: Assign Warden & Lead Fee Tracking (Section 5) */}
+        {selectedLeadForAssign && (
+          <div className="fixed inset-0 z-60 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-neutral-200">
+              <div className="flex items-center justify-between pb-3 border-b border-neutral-200 mb-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-xs font-bold px-2 py-0.5 bg-neutral-900 text-white rounded">
+                      {selectedLeadForAssign.lead_id}
+                    </span>
+                    <h3 className="font-extrabold text-sm text-neutral-900">
+                      Assign Lead to Hostel Warden
+                    </h3>
+                  </div>
+                  <p className="text-[11px] text-neutral-500 mt-0.5">
+                    Student: {selectedLeadForAssign.visitor_name} ({selectedLeadForAssign.visitor_phone})
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSelectedLeadForAssign(null)}
+                  className="p-1 text-neutral-400 hover:text-neutral-700 rounded-md cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <form onSubmit={handleSaveWardenAssignment} className="space-y-4 text-xs">
+                {/* Pre-fill from Hostel dropdown */}
+                <div>
+                  <label className="block font-bold text-neutral-700 mb-1">
+                    Select Hostel Warden Profile
+                  </label>
+                  <select
+                    onChange={(e) => {
+                      const h = hostelsList.find((hostel) => hostel.id === e.target.value);
+                      if (h) {
+                        setAssignWardenName(h.contact_name || `Warden (${h.name})`);
+                        setAssignWardenPhone(h.phone || h.whatsapp || '');
+                      }
+                    }}
+                    className="w-full p-2 bg-neutral-50 border border-neutral-300 rounded-lg text-neutral-900 cursor-pointer"
+                  >
+                    <option value="">-- Choose from existing hostels --</option>
+                    {hostelsList.map((h) => (
+                      <option key={h.id} value={h.id}>
+                        {h.name} ({h.area}) {h.contact_name ? `— ${h.contact_name}` : ''}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block font-bold text-neutral-700 mb-1">
+                      Warden / Manager Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={assignWardenName}
+                      onChange={(e) => setAssignWardenName(e.target.value)}
+                      placeholder="e.g. Warden Malik Asif"
+                      className="w-full p-2 bg-neutral-50 border border-neutral-300 rounded-lg"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-neutral-700 mb-1">
+                      Warden WhatsApp / Phone <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={assignWardenPhone}
+                      onChange={(e) => setAssignWardenPhone(e.target.value)}
+                      placeholder="0300-1234567"
+                      className="w-full p-2 bg-neutral-50 border border-neutral-300 rounded-lg"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block font-bold text-neutral-700 mb-1">
+                      Expected Lead Fee (PKR)
+                    </label>
+                    <input
+                      type="number"
+                      value={assignLeadFee}
+                      onChange={(e) => setAssignLeadFee(Number(e.target.value))}
+                      placeholder="1500"
+                      className="w-full p-2 bg-neutral-50 border border-neutral-300 rounded-lg font-mono"
+                    />
+                    <span className="text-[10px] text-neutral-400">Commission upon successful room booking</span>
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-neutral-700 mb-1">
+                      Fee Payment Status
+                    </label>
+                    <select
+                      value={assignFeeStatus}
+                      onChange={(e) => setAssignFeeStatus(e.target.value as any)}
+                      className="w-full p-2 bg-neutral-50 border border-neutral-300 rounded-lg cursor-pointer"
+                    >
+                      <option value="Pending">Pending Confirmation</option>
+                      <option value="Paid">Paid / Collected</option>
+                      <option value="Waived">Waived / Direct</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block font-bold text-neutral-700 mb-1">
+                    Internal Follow-up / Dispatch Notes
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={assignNotes}
+                    onChange={(e) => setAssignNotes(e.target.value)}
+                    placeholder="e.g. Student requested ground floor room. Warden notified on phone."
+                    className="w-full p-2 bg-neutral-50 border border-neutral-300 rounded-lg"
+                  />
+                </div>
+
+                <div className="flex items-center justify-between pt-3 border-t border-neutral-200">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleDispatchWardenWhatsApp({
+                        ...selectedLeadForAssign,
+                        assigned_warden_name: assignWardenName,
+                        assigned_warden_phone: assignWardenPhone,
+                      });
+                    }}
+                    className="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg font-bold text-xs inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                    <span>Send via WhatsApp</span>
+                  </button>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedLeadForAssign(null)}
+                      className="px-3.5 py-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-lg font-medium cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-neutral-900 hover:bg-neutral-800 text-white rounded-lg font-bold transition-colors cursor-pointer"
+                    >
+                      Save & Assign
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* Modal: Log Manual Student Lead */}
+        {manualLeadModalOpen && (
+          <div className="fixed inset-0 z-60 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-neutral-200">
+              <div className="flex items-center justify-between pb-3 border-b border-neutral-200 mb-4">
+                <div>
+                  <h3 className="font-extrabold text-sm text-neutral-900">
+                    Log Customer Lead Manually
+                  </h3>
+                  <p className="text-[11px] text-neutral-500 mt-0.5">
+                    For walk-in students, phone calls, or referrals received by admin.
+                  </p>
+                </div>
+                <button
+                  onClick={() => setManualLeadModalOpen(false)}
+                  className="p-1 text-neutral-400 hover:text-neutral-700 rounded-md cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <form onSubmit={handleCreateManualLead} className="space-y-3.5 text-xs">
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block font-bold text-neutral-700 mb-1">
+                      Student Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={manualLeadData.visitor_name}
+                      onChange={(e) =>
+                        setManualLeadData({ ...manualLeadData, visitor_name: e.target.value })
+                      }
+                      placeholder="e.g. Danish Ali"
+                      className="w-full p-2 bg-neutral-50 border border-neutral-300 rounded-lg"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-neutral-700 mb-1">
+                      Phone Number <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={manualLeadData.visitor_phone}
+                      onChange={(e) =>
+                        setManualLeadData({ ...manualLeadData, visitor_phone: e.target.value })
+                      }
+                      placeholder="0300-1234567"
+                      className="w-full p-2 bg-neutral-50 border border-neutral-300 rounded-lg"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block font-bold text-neutral-700 mb-1">Category</label>
+                    <select
+                      value={manualLeadData.gender}
+                      onChange={(e) =>
+                        setManualLeadData({ ...manualLeadData, gender: e.target.value as any })
+                      }
+                      className="w-full p-2 bg-neutral-50 border border-neutral-300 rounded-lg"
+                    >
+                      <option value="Boys">Boys Hostel</option>
+                      <option value="Girls">Girls Hostel</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-neutral-700 mb-1">Preferred Area</label>
+                    <select
+                      value={manualLeadData.area}
+                      onChange={(e) =>
+                        setManualLeadData({ ...manualLeadData, area: e.target.value })
+                      }
+                      className="w-full p-2 bg-neutral-50 border border-neutral-300 rounded-lg"
+                    >
+                      {areas.map((a) => (
+                        <option key={a.id} value={a.name}>
+                          {a.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block font-bold text-neutral-700 mb-1">Monthly Budget</label>
+                    <select
+                      value={manualLeadData.budget}
+                      onChange={(e) =>
+                        setManualLeadData({ ...manualLeadData, budget: e.target.value })
+                      }
+                      className="w-full p-2 bg-neutral-50 border border-neutral-300 rounded-lg"
+                    >
+                      <option value="Under PKR 12,000">Under PKR 12,000</option>
+                      <option value="PKR 12,000 – 18,000">PKR 12,000 – 18,000</option>
+                      <option value="PKR 18,000 – 25,000">PKR 18,000 – 25,000</option>
+                      <option value="Above PKR 25,000">Above PKR 25,000</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-neutral-700 mb-1">Room Type</label>
+                    <select
+                      value={manualLeadData.room_type}
+                      onChange={(e) =>
+                        setManualLeadData({ ...manualLeadData, room_type: e.target.value })
+                      }
+                      className="w-full p-2 bg-neutral-50 border border-neutral-300 rounded-lg"
+                    >
+                      <option value="Single">Single</option>
+                      <option value="Double">Double</option>
+                      <option value="Triple">Triple</option>
+                      <option value="Shared">Shared</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block font-bold text-neutral-700 mb-1">
+                    Preferred Hostel Name (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    value={manualLeadData.hostel_name}
+                    onChange={(e) =>
+                      setManualLeadData({ ...manualLeadData, hostel_name: e.target.value })
+                    }
+                    placeholder="e.g. Johar Heights Boys Hostel"
+                    className="w-full p-2 bg-neutral-50 border border-neutral-300 rounded-lg"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-bold text-neutral-700 mb-1">Notes / Call Details</label>
+                  <textarea
+                    rows={2}
+                    value={manualLeadData.notes}
+                    onChange={(e) =>
+                      setManualLeadData({ ...manualLeadData, notes: e.target.value })
+                    }
+                    placeholder="Student called inquiring for room starting Oct 1st."
+                    className="w-full p-2 bg-neutral-50 border border-neutral-300 rounded-lg"
+                  />
+                </div>
+
+                <div className="flex justify-end gap-2 pt-2 border-t border-neutral-200">
+                  <button
+                    type="button"
+                    onClick={() => setManualLeadModalOpen(false)}
+                    className="px-3.5 py-2 bg-neutral-100 text-neutral-700 rounded-lg font-medium cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-5 py-2 bg-emerald-800 hover:bg-emerald-700 text-white rounded-lg font-bold cursor-pointer"
+                  >
+                    Create Lead
                   </button>
                 </div>
               </form>

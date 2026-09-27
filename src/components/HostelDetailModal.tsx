@@ -36,6 +36,7 @@ interface HostelDetailModalProps {
   onClose: () => void;
   onTrackClick: (hostelId: string, type: 'contact' | 'whatsapp' | 'map' | 'phone' | 'instagram' | 'facebook' | 'website') => void;
   onClaimHostel: (hostel: Hostel) => void;
+  onContactHostel?: (hostel: Hostel) => void;
 }
 
 export const HostelDetailModal: React.FC<HostelDetailModalProps> = ({
@@ -43,6 +44,7 @@ export const HostelDetailModal: React.FC<HostelDetailModalProps> = ({
   onClose,
   onTrackClick,
   onClaimHostel,
+  onContactHostel,
 }) => {
   if (!hostel) return null;
 
@@ -605,6 +607,18 @@ export const HostelDetailModal: React.FC<HostelDetailModalProps> = ({
 
           {/* Dynamic Buttons Container: Only show when real data exists! */}
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 w-full sm:w-auto">
+            {/* Primary Action: Contact this Hostel */}
+            <button
+              onClick={() => {
+                onClose();
+                onContactHostel?.(hostel);
+              }}
+              className="px-5 py-2.5 bg-emerald-800 hover:bg-emerald-700 text-white rounded-lg font-bold text-xs inline-flex items-center gap-1.5 transition-all shadow-md active:scale-98 cursor-pointer"
+            >
+              <MessageCircle className="w-4 h-4 text-white" />
+              <span>Contact this Hostel</span>
+            </button>
+
             {/* Call */}
             {hostel.phone && (
               <a

@@ -27,6 +27,8 @@ import { PopularAreas } from './components/PopularAreas';
 import { HowItWorks } from './components/HowItWorks';
 import { SubmitHostelModal } from './components/SubmitHostelModal';
 import { ClaimHostelModal } from './components/ClaimHostelModal';
+import { ContactHostelModal } from './components/ContactHostelModal';
+import { GuidedHostelSearch, GuidedSearchState } from './components/GuidedHostelSearch';
 import { AdminPanel } from './components/AdminPanel';
 import { Footer } from './components/Footer';
 
@@ -35,6 +37,28 @@ export default function App() {
   const [areas, setAreas] = useState<AreaItem[]>(INITIAL_AREAS);
   const [universities, setUniversities] = useState<UniversityItem[]>(INITIAL_UNIVERSITIES);
   const [loading, setLoading] = useState(false);
+
+  // Homepage Guided Search & Results State (Section 1)
+  const [hasSearched, setHasSearched] = useState(false);
+  const [guidedSearch, setGuidedSearch] = useState<GuidedSearchState>({
+    gender: 'Boys',
+    area: 'All',
+    budgetMax: 50000,
+    budgetLabel: 'Any Budget',
+    requirements: {
+      wifi: false,
+      mess: false,
+      ac: false,
+      furnished: false,
+      attachedBath: false,
+      parking: false,
+      backup: false,
+    },
+  });
+
+  // Contact / Lead Generation Modal State (Section 3)
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [contactTargetHostel, setContactTargetHostel] = useState<Hostel | null>(null);
 
   // Filters State
   const initialFilters: FilterState = {
@@ -114,6 +138,71 @@ export default function App() {
 
   const handleResetFilters = () => {
     setFilters(initialFilters);
+    setHasSearched(false);
+  };
+
+  // Guided Search Submit Handler (Section 1)
+  const handleGuidedSearchSubmit = (criteria: GuidedSearchState) => {
+    setGuidedSearch(criteria);
+    setHasSearched(true);
+    setFilters((prev) => ({
+      ...prev,
+      gender: criteria.gender,
+      area: criteria.area,
+      maxRent: criteria.budgetMax,
+      wifi: criteria.requirements.wifi,
+      mess: criteria.requirements.mess,
+      ac: criteria.requirements.ac,
+      furnished: criteria.requirements.furnished,
+      attachedBath: criteria.requirements.attachedBath,
+      parking: criteria.requirements.parking,
+      backup: criteria.requirements.backup,
+    }));
+    setTimeout(() => {
+      document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+
+  const handleResetGuidedSearch = () => {
+    setHasSearched(false);
+    setFilters(initialFilters);
+    setGuidedSearch({
+      gender: 'Boys',
+      area: 'All',
+      budgetMax: 50000,
+      budgetLabel: 'Any Budget',
+      requirements: {
+        wifi: false,
+        mess: false,
+        ac: false,
+        furnished: false,
+        attachedBath: false,
+        parking: false,
+        backup: false,
+      },
+    });
+  };
+
+  // Quick navigation triggers from Header, Hero, and Popular Areas
+  const handleSelectCategory = (cat: 'All' | 'Boys' | 'Girls') => {
+    const nextCat = cat === 'All' ? 'Boys' : cat;
+    setFilters((prev) => ({ ...prev, gender: cat }));
+    setGuidedSearch((prev) => ({ ...prev, gender: nextCat }));
+    setHasSearched(true);
+    document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleSelectArea = (areaName: string) => {
+    setFilters((prev) => ({ ...prev, area: areaName }));
+    setGuidedSearch((prev) => ({ ...prev, area: areaName }));
+    setHasSearched(true);
+    document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Open Contact / Lead Modal
+  const handleOpenContactHostel = (hostel?: Hostel) => {
+    setContactTargetHostel(hostel || null);
+    setIsContactModalOpen(true);
   };
 
   // Track clicks for analytics
@@ -265,7 +354,7 @@ export default function App() {
       {/* 3-Zone Navigation Header */}
       <Navbar
         currentCategory={filters.gender}
-        onSelectCategory={(cat) => handleFilterChange({ gender: cat })}
+        onSelectCategory={handleSelectCategory}
         onOpenSubmit={() => setIsSubmitOpen(true)}
         onOpenAdmin={() => setIsAdminOpen(true)}
         compareCount={comparedHostelIds.length}
@@ -275,138 +364,244 @@ export default function App() {
       {/* Hero Section with Search & Area Quick Jump */}
       <Hero
         searchQuery={filters.searchQuery}
-        onSearchChange={(q) => handleFilterChange({ searchQuery: q })}
-        onSelectCategory={(cat) => {
-          handleFilterChange({ gender: cat });
-          document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth' });
+        onSearchChange={(q) => {
+          handleFilterChange({ searchQuery: q });
+          if (q.trim()) setHasSearched(true);
         }}
+        onSelectCategory={handleSelectCategory}
         selectedArea={filters.area}
-        onSelectArea={(area) => {
-          handleFilterChange({ area });
-          document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth' });
-        }}
+        onSelectArea={handleSelectArea}
         popularAreas={popularAreaNames}
       />
+
+      {/* Guided 5-Step Hostel Search (Section 1: Homepage Behavior) */}
+      <section id="guided-search" className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 -mt-6 sm:-mt-10 relative z-20">
+        <GuidedHostelSearch
+          areas={areas}
+          currentSearch={guidedSearch}
+          hasSearched={hasSearched}
+          onSearch={handleGuidedSearchSubmit}
+          onReset={handleResetGuidedSearch}
+        />
+      </section>
 
       {/* Popular Student Neighborhoods */}
       <PopularAreas
         areas={areas}
         selectedArea={filters.area}
-        onSelectArea={(area) => {
-          handleFilterChange({ area });
-          document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth' });
-        }}
+        onSelectArea={handleSelectArea}
       />
 
       {/* Main Hostel Directory Section */}
-      <main id="directory" className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        {/* Section Heading & Controls Bar */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 gap-4 border-b border-neutral-200">
-          <div>
-            <div className="flex items-center gap-2">
+      <main id="directory" className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {!hasSearched ? (
+          /* PRE-SEARCH STATE (Requirement 1: "Select your requirements to find matching hostels.") */
+          <div className="bg-white rounded-2xl border border-neutral-200 p-8 sm:p-14 text-center max-w-3xl mx-auto my-4 shadow-sm space-y-6">
+            <div className="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-800 flex items-center justify-center mx-auto border border-emerald-100 shadow-inner">
+              <Building2 className="w-8 h-8" />
+            </div>
+
+            <div>
               <span className="text-xs font-bold uppercase tracking-wider text-emerald-800">
-                Directory Listings
+                Lahore Student Stay Directory
               </span>
-              <span className="text-neutral-400">·</span>
-              <span className="text-xs text-neutral-500 font-medium">
-                {filteredHostels.length} {filteredHostels.length === 1 ? 'hostel' : 'hostels'} found
-              </span>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 tracking-tight mt-1.5 mb-2">
+                Select your requirements to find matching hostels.
+              </h3>
+              <p className="text-xs sm:text-sm text-neutral-600 max-w-xl mx-auto leading-relaxed">
+                To prevent confusion and outdated room claims, our platform matches you only with verified boys or girls accommodations meeting your specific area, budget, and amenity requirements.
+              </p>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 tracking-tight mt-1">
-              {filters.gender === 'Boys'
-                ? 'Boys Hostels in Lahore'
-                : filters.gender === 'Girls'
-                ? 'Girls Hostels in Lahore'
-                : 'All Student Hostels in Lahore'}
-              {filters.area !== 'All' ? ` — ${filters.area}` : ''}
-            </h2>
-          </div>
-
-          {/* Sort & Mobile Filter Trigger */}
-          <div className="flex items-center gap-3">
-            {/* Mobile Filter Toggle Button */}
-            <button
-              onClick={() => setIsMobileFiltersOpen(true)}
-              className="lg:hidden px-3.5 py-2 text-xs font-semibold bg-white border border-neutral-300 rounded-lg shadow-sm text-neutral-800 flex items-center gap-1.5 cursor-pointer"
-            >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-neutral-600" />
-              <span>Filter Options</span>
-            </button>
-
-            {/* Sort Select */}
-            <div className="flex items-center gap-1.5 bg-white border border-neutral-300 rounded-lg px-3 py-2 text-xs">
-              <ArrowUpDown className="w-3.5 h-3.5 text-neutral-500" />
-              <label htmlFor="sortBy" className="text-neutral-500 font-medium hidden sm:inline">
-                Sort:
-              </label>
-              <select
-                id="sortBy"
-                value={filters.sortBy}
-                onChange={(e) => handleFilterChange({ sortBy: e.target.value as any })}
-                className="bg-transparent text-neutral-900 font-semibold focus:outline-none cursor-pointer"
-              >
-                <option value="featured">Featured First</option>
-                <option value="lowest_rent">Lowest Rent</option>
-                <option value="highest_rent">Highest Rent</option>
-                <option value="recently_updated">Recently Checked</option>
-                <option value="recently_verified">Verified First</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* 2-Column Content Layout (Desktop) */}
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
-          {/* Left Column: Sticky Desktop Filter Sidebar */}
-          <aside className="hidden lg:block lg:col-span-1 sticky top-20">
-            <HostelFilters
-              filters={filters}
-              onChange={handleFilterChange}
-              onReset={handleResetFilters}
-              areas={areas}
-              universities={universities}
-              totalResults={filteredHostels.length}
-            />
-          </aside>
-
-          {/* Right Column: Hostels Grid */}
-          <div className="lg:col-span-3">
-            {filteredHostels.length === 0 ? (
-              <div className="bg-white rounded-2xl border border-neutral-200 p-12 text-center max-w-lg mx-auto my-8">
-                <div className="w-12 h-12 rounded-xl bg-neutral-100 flex items-center justify-center mx-auto mb-4 text-neutral-400">
-                  <Building2 className="w-6 h-6" />
+            {/* 4 Pillars of Real Data Guarantee */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left pt-2">
+              <div className="p-4 bg-neutral-50 rounded-xl border border-neutral-200/80">
+                <div className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider">
+                  1. Zero Fake Ratings
                 </div>
-                <h3 className="text-lg font-bold text-neutral-900 mb-1">
-                  No matching hostels found
-                </h3>
-                <p className="text-xs text-neutral-500 leading-relaxed mb-6">
-                  Try broadening your search criteria, adjusting rent thresholds, or resetting specific facility filters.
-                </p>
-                <button
-                  onClick={handleResetFilters}
-                  className="px-5 py-2.5 bg-neutral-900 text-white rounded-lg text-xs font-semibold hover:bg-neutral-800 transition-colors cursor-pointer"
-                >
-                  Reset All Filters
-                </button>
+                <div className="text-xs text-neutral-600 mt-1 leading-relaxed">
+                  No artificial 5-star reviews. Only factual rents, verified facilities, and actual room photos.
+                </div>
               </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredHostels.map((hostel) => (
-                  <HostelCard
-                    key={hostel.id}
-                    hostel={hostel}
-                    onViewDetails={handleViewDetails}
-                    onTrackClick={handleTrackClick}
-                    isCompared={comparedHostelIds.includes(hostel.id)}
-                    onToggleCompare={handleToggleCompare}
-                    onClaimHostel={handleOpenClaim}
-                  />
-                ))}
+
+              <div className="p-4 bg-neutral-50 rounded-xl border border-neutral-200/80">
+                <div className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider">
+                  2. Direct Warden Lead
+                </div>
+                <div className="text-xs text-neutral-600 mt-1 leading-relaxed">
+                  Every inquiry receives a unique Lead Reference (e.g. LS-1047) tracked with hostel management.
+                </div>
               </div>
-            )}
+
+              <div className="p-4 bg-neutral-50 rounded-xl border border-neutral-200/80">
+                <div className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider">
+                  3. Key Lahore Hubs
+                </div>
+                <div className="text-xs text-neutral-600 mt-1 leading-relaxed">
+                  Targeted campuses near PU, UMT, UCP, UOL, FAST, COMSATS, and FCCU across 30+ Lahore areas.
+                </div>
+              </div>
+            </div>
+
+            {/* Direct Inquiry Banner */}
+            <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-left">
+              <div>
+                <div className="text-xs font-bold text-emerald-950">
+                  Prefer our accommodation advisor to assist you?
+                </div>
+                <div className="text-[11px] text-emerald-800 mt-0.5">
+                  Submit a general inquiry with your preferences and our team will recommend verified options.
+                </div>
+              </div>
+              <button
+                onClick={() => handleOpenContactHostel()}
+                className="px-5 py-2.5 bg-emerald-800 hover:bg-emerald-700 text-white rounded-xl text-xs font-extrabold transition-all shrink-0 cursor-pointer shadow-sm active:scale-95"
+              >
+                Contact Lahore Student Stay
+              </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          /* ACTIVE SEARCH RESULTS (Section 2) */
+          <div>
+            {/* Section Heading & Controls Bar */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 gap-4 border-b border-neutral-200">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-800">
+                    Search Results
+                  </span>
+                  <span className="text-neutral-400">·</span>
+                  <span className="text-xs text-neutral-500 font-medium">
+                    {filteredHostels.length} {filteredHostels.length === 1 ? 'hostel' : 'hostels'} found
+                  </span>
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 tracking-tight mt-1">
+                  {filters.gender === 'Boys'
+                    ? 'Boys Hostels in Lahore'
+                    : filters.gender === 'Girls'
+                    ? 'Girls Hostels in Lahore'
+                    : 'All Student Hostels in Lahore'}
+                  {filters.area !== 'All' ? ` — ${filters.area}` : ''}
+                </h2>
+
+                {/* Active Parameters Breadcrumb */}
+                <div className="mt-2 flex flex-wrap items-center gap-1.5 text-xs text-neutral-600">
+                  <span className="font-semibold text-neutral-800">Criteria:</span>
+                  <span className="px-2 py-0.5 bg-neutral-200 text-neutral-800 rounded font-medium">
+                    {filters.gender}
+                  </span>
+                  <span className="px-2 py-0.5 bg-neutral-200 text-neutral-800 rounded font-medium">
+                    {filters.area === 'All' ? 'All Areas' : filters.area}
+                  </span>
+                  {filters.maxRent < 50000 && (
+                    <span className="px-2 py-0.5 bg-neutral-200 text-neutral-800 rounded font-medium">
+                      Up to PKR {filters.maxRent.toLocaleString()}
+                    </span>
+                  )}
+                  {filters.wifi && <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded">Wi-Fi</span>}
+                  {filters.mess && <span className="px-2 py-0.5 bg-amber-100 text-amber-800 rounded">Mess</span>}
+                  {filters.ac && <span className="px-2 py-0.5 bg-blue-100 text-blue-800 rounded">AC</span>}
+                  {filters.furnished && <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded">Furnished</span>}
+                  {filters.attachedBath && <span className="px-2 py-0.5 bg-indigo-100 text-indigo-800 rounded">Attached Bath</span>}
+
+                  <button
+                    onClick={handleResetGuidedSearch}
+                    className="ml-2 text-xs font-semibold text-emerald-800 hover:underline cursor-pointer"
+                  >
+                    Modify / Reset Search
+                  </button>
+                </div>
+              </div>
+
+              {/* Sort & Mobile Filter Trigger */}
+              <div className="flex items-center gap-3">
+                {/* Mobile Filter Toggle Button */}
+                <button
+                  onClick={() => setIsMobileFiltersOpen(true)}
+                  className="lg:hidden px-3.5 py-2 text-xs font-semibold bg-white border border-neutral-300 rounded-lg shadow-sm text-neutral-800 flex items-center gap-1.5 cursor-pointer"
+                >
+                  <SlidersHorizontal className="w-3.5 h-3.5 text-neutral-600" />
+                  <span>Filter Options</span>
+                </button>
+
+                {/* Sort Select */}
+                <div className="flex items-center gap-1.5 bg-white border border-neutral-300 rounded-lg px-3 py-2 text-xs">
+                  <ArrowUpDown className="w-3.5 h-3.5 text-neutral-500" />
+                  <label htmlFor="sortBy" className="text-neutral-500 font-medium hidden sm:inline">
+                    Sort:
+                  </label>
+                  <select
+                    id="sortBy"
+                    value={filters.sortBy}
+                    onChange={(e) => handleFilterChange({ sortBy: e.target.value as any })}
+                    className="bg-transparent text-neutral-900 font-semibold focus:outline-none cursor-pointer"
+                  >
+                    <option value="featured">Featured First</option>
+                    <option value="lowest_rent">Lowest Rent</option>
+                    <option value="highest_rent">Highest Rent</option>
+                    <option value="recently_updated">Recently Checked</option>
+                    <option value="recently_verified">Verified First</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {/* 2-Column Content Layout (Desktop) */}
+            <div className="mt-8 grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+              {/* Left Column: Sticky Desktop Filter Sidebar */}
+              <aside className="hidden lg:block lg:col-span-1 sticky top-20">
+                <HostelFilters
+                  filters={filters}
+                  onChange={handleFilterChange}
+                  onReset={handleResetFilters}
+                  areas={areas}
+                  universities={universities}
+                  totalResults={filteredHostels.length}
+                />
+              </aside>
+
+              {/* Right Column: Hostels Grid */}
+              <div className="lg:col-span-3">
+                {filteredHostels.length === 0 ? (
+                  <div className="bg-white rounded-2xl border border-neutral-200 p-12 text-center max-w-lg mx-auto my-8">
+                    <div className="w-12 h-12 rounded-xl bg-neutral-100 flex items-center justify-center mx-auto mb-4 text-neutral-400">
+                      <Building2 className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-lg font-bold text-neutral-900 mb-1">
+                      No matching hostels found
+                    </h3>
+                    <p className="text-xs text-neutral-500 leading-relaxed mb-6">
+                      Try broadening your search criteria, adjusting rent thresholds, or resetting specific facility filters.
+                    </p>
+                    <button
+                      onClick={handleResetFilters}
+                      className="px-5 py-2.5 bg-neutral-900 text-white rounded-lg text-xs font-semibold hover:bg-neutral-800 transition-colors cursor-pointer"
+                    >
+                      Reset All Filters
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                    {filteredHostels.map((hostel) => (
+                      <HostelCard
+                        key={hostel.id}
+                        hostel={hostel}
+                        onViewDetails={handleViewDetails}
+                        onTrackClick={handleTrackClick}
+                        isCompared={comparedHostelIds.includes(hostel.id)}
+                        onToggleCompare={handleToggleCompare}
+                        onClaimHostel={handleOpenClaim}
+                        onContactHostel={handleOpenContactHostel}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* How It Works Editorial Section */}
@@ -486,6 +681,20 @@ export default function App() {
         onClose={() => setSelectedHostel(null)}
         onTrackClick={handleTrackClick}
         onClaimHostel={handleOpenClaim}
+        onContactHostel={handleOpenContactHostel}
+      />
+
+      <ContactHostelModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+        hostel={contactTargetHostel}
+        defaultGender={guidedSearch.gender === 'All' ? 'Boys' : guidedSearch.gender}
+        defaultArea={guidedSearch.area === 'All' ? 'Johar Town' : guidedSearch.area}
+        areas={areas}
+        hostels={hostels}
+        onLeadSuccess={() => {
+          loadHostels();
+        }}
       />
 
       <ClaimHostelModal
