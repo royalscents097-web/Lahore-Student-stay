@@ -1,0 +1,6 @@
+{
+  "name": "Lahore Student Stay",
+  "description": "Find the right student hostel in Lahore. Verified boys & girls hostels directory with real data, pricing, and contact options.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

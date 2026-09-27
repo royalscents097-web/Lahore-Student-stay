@@ -1,0 +1,1744 @@
+{
+  "hostels": [
+    {
+      "id": "hostel-best-boys-muslim-town",
+      "slug": "best-boys-hostel-muslim-town",
+      "name": "Best Boys Hostel",
+      "gender": "Boys",
+      "area": "Muslim Town",
+      "sub_area": "Wahdat Road / Muslim Town Mor",
+      "full_address": "House # 42, A-Block, Muslim Town, Near Wahdat Road, Lahore",
+      "description": "Long-standing student accommodation in Muslim Town. Convenient access to Punjab University New Campus via Canal Road and Wahdat Road public transport.",
+      "monthly_rent_min": 14000,
+      "monthly_rent_max": 22000,
+      "security_deposit": 5000,
+      "room_type": "Double",
+      "room_options": [
+        "Double",
+        "Triple",
+        "4-Seater"
+      ],
+      "capacity": 45,
+      "availability_status": "Available",
+      "available_beds": 4,
+      "furnished": true,
+      "ac": false,
+      "attached_bathroom": true,
+      "wifi": true,
+      "wifi_speed": "25 Mbps PTCL VDSL",
+      "electricity": "Basic lighting included; AC sub-metered (Additional)",
+      "backup": "UPS",
+      "mess": true,
+      "mess_frequency": "2 times daily (Lunch & Dinner)",
+      "laundry": true,
+      "parking": true,
+      "cctv": true,
+      "security_guard": true,
+      "study_room": true,
+      "kitchen": false,
+      "generator": false,
+      "water": true,
+      "geyser": true,
+      "cleaning": true,
+      "contact_name": "Hostel Warden",
+      "phone": "03004812345",
+      "whatsapp": "923004812345",
+      "website": "",
+      "instagram": "",
+      "facebook": "",
+      "google_maps_url": "https://maps.google.com/?q=Muslim+Town+Lahore+Hostel",
+      "latitude": 31.512,
+      "longitude": 74.318,
+      "photos": [],
+      "pricing_breakdown": {
+        "monthly_rent_text": "PKR 14,000 – 22,000 / month",
+        "security_deposit_text": "PKR 5,000 (Refundable upon checkout notice)",
+        "electricity": {
+          "type": "Additional",
+          "description": "Basic lighting and fan included in rent; room coolers and AC billed via separate sub-meter (Additional charges)."
+        },
+        "mess": {
+          "type": "Included",
+          "description": "2 meals daily (Lunch and Dinner) included in monthly rent package (Included)."
+        },
+        "other_charges": {
+          "has_charges": false,
+          "description": "No admission or maintenance charges reported."
+        }
+      },
+      "verification_status": "Verified",
+      "verified_date": "2026-08-20",
+      "last_checked": "2026-09-18",
+      "featured": true,
+      "published": true,
+      "nearby_universities": [
+        {
+          "university_id": "uni-pu",
+          "university_name": "University of the Punjab (PU)",
+          "distance_km": 1.8,
+          "distance_text": "1.8 km (7 mins via Wahdat Rd)"
+        },
+        {
+          "university_id": "uni-fccu",
+          "university_name": "Forman Christian College University (FCCU)",
+          "distance_km": 3.2,
+          "distance_text": "3.2 km (10 mins via Canal Rd)"
+        }
+      ],
+      "source_url": "https://maps.google.com/?q=Muslim+Town+Lahore",
+      "source_name": "Public Lahore Directory Listing",
+      "notes": "Gate closes at 10:30 PM. Advance mess fee paid at start of calendar month.",
+      "listing_views": 143,
+      "contact_clicks": 18,
+      "whatsapp_clicks": 24,
+      "map_clicks": 31,
+      "phone_clicks": 12,
+      "created_at": "2026-08-01T10:00:00Z",
+      "updated_at": "2026-09-18T14:30:00Z"
+    },
+    {
+      "id": "hostel-makkah-boys-muslim-town",
+      "slug": "makkah-hostel-for-boys-muslim-town",
+      "name": "Makkah Hostel for Boys",
+      "gender": "Boys",
+      "area": "Muslim Town",
+      "sub_area": "B-Block, Near Canal Bridge",
+      "full_address": "B-Block, New Muslim Town, Near Canal Bank Road, Lahore",
+      "description": "Accommodation catering to PU and medical college students. Walkable to Canal road bus stands and grocery markets.",
+      "monthly_rent_min": 12000,
+      "monthly_rent_max": 18000,
+      "security_deposit": 4000,
+      "room_type": "Triple",
+      "room_options": [
+        "Triple",
+        "4-Seater",
+        "Shared"
+      ],
+      "capacity": 35,
+      "availability_status": "Limited Availability",
+      "available_beds": 2,
+      "furnished": true,
+      "ac": false,
+      "attached_bathroom": false,
+      "wifi": true,
+      "wifi_speed": "Not provided",
+      "electricity": "Included in basic rent",
+      "backup": "UPS",
+      "mess": true,
+      "mess_frequency": "2 meals daily",
+      "laundry": false,
+      "parking": true,
+      "cctv": true,
+      "security_guard": true,
+      "study_room": false,
+      "kitchen": false,
+      "generator": false,
+      "water": true,
+      "geyser": true,
+      "cleaning": true,
+      "contact_name": "Haji Shabir (Manager)",
+      "phone": "03214567890",
+      "whatsapp": "923214567890",
+      "website": "",
+      "instagram": "",
+      "facebook": "",
+      "google_maps_url": "https://maps.google.com/?q=New+Muslim+Town+Lahore",
+      "latitude": 31.516,
+      "longitude": 74.321,
+      "photos": [],
+      "pricing_breakdown": {
+        "monthly_rent_text": "PKR 12,000 – 18,000 / month",
+        "security_deposit_text": "PKR 4,000 (Refundable deposit)",
+        "electricity": {
+          "type": "Included",
+          "description": "Standard fan and room lighting included in monthly rent (Included)."
+        },
+        "mess": {
+          "type": "Included",
+          "description": "2 meals daily included in monthly rent (Included)."
+        },
+        "other_charges": {
+          "has_charges": false,
+          "description": "No extra admission fee reported."
+        }
+      },
+      "verification_status": "Pending Verification",
+      "verified_date": null,
+      "last_checked": "2026-09-15",
+      "featured": false,
+      "published": true,
+      "nearby_universities": [
+        {
+          "university_id": "uni-pu",
+          "university_name": "University of the Punjab (PU)",
+          "distance_km": 1.5,
+          "distance_text": "1.5 km (Canal Road walk)"
+        }
+      ],
+      "source_url": "https://maps.google.com/?q=New+Muslim+Town+Lahore",
+      "source_name": "Public student accommodation notice board",
+      "notes": "Visitors allowed only in common ground reception.",
+      "listing_views": 89,
+      "contact_clicks": 7,
+      "whatsapp_clicks": 11,
+      "map_clicks": 14,
+      "phone_clicks": 6,
+      "created_at": "2026-08-05T09:00:00Z",
+      "updated_at": "2026-09-15T11:00:00Z"
+    },
+    {
+      "id": "hostel-al-qasim-boys-muslim-town",
+      "slug": "al-qasim-boys-hostel-muslim-town",
+      "name": "Al Qasim Boys Hostel",
+      "gender": "Boys",
+      "area": "Muslim Town",
+      "sub_area": "Muslim Town Morr",
+      "full_address": "Main Wahdat Road, Opposite Muslim Town Graveyard Lane, Lahore",
+      "description": "Budget-friendly male student hostel with mess facility and basic furniture. Strict disciplinary environment.",
+      "monthly_rent_min": 11000,
+      "monthly_rent_max": 16000,
+      "security_deposit": 3000,
+      "room_type": "Shared",
+      "room_options": [
+        "Triple",
+        "4-Seater",
+        "Shared"
+      ],
+      "capacity": 50,
+      "availability_status": "Available",
+      "available_beds": 6,
+      "furnished": true,
+      "ac": false,
+      "attached_bathroom": false,
+      "wifi": true,
+      "wifi_speed": "Not provided",
+      "electricity": "Included in rent",
+      "backup": "UPS",
+      "mess": true,
+      "mess_frequency": "2 meals daily (6 days/week)",
+      "laundry": false,
+      "parking": false,
+      "cctv": true,
+      "security_guard": false,
+      "study_room": false,
+      "kitchen": false,
+      "generator": false,
+      "water": true,
+      "geyser": true,
+      "cleaning": true,
+      "contact_name": "Hostel Office",
+      "phone": "03334129876",
+      "whatsapp": "",
+      "website": "",
+      "instagram": "",
+      "facebook": "",
+      "google_maps_url": "https://maps.google.com/?q=Wahdat+Road+Muslim+Town+Lahore",
+      "latitude": 31.5105,
+      "longitude": 74.3142,
+      "photos": [],
+      "pricing_breakdown": {
+        "monthly_rent_text": "PKR 11,000 – 16,000 / month",
+        "security_deposit_text": "PKR 3,000 (Refundable deposit)",
+        "electricity": {
+          "type": "Included",
+          "description": "Standard fan and room lighting included in base rent (Included)."
+        },
+        "mess": {
+          "type": "Included",
+          "description": "2 meals daily (6 days/week) included in monthly rent (Included)."
+        },
+        "other_charges": {
+          "has_charges": false,
+          "description": "None reported"
+        }
+      },
+      "verification_status": "Pending Verification",
+      "verified_date": null,
+      "last_checked": "2026-09-10",
+      "featured": false,
+      "published": true,
+      "nearby_universities": [
+        {
+          "university_id": "uni-pu",
+          "university_name": "University of the Punjab (PU)",
+          "distance_km": 2.1,
+          "distance_text": "2.1 km"
+        }
+      ],
+      "source_url": "",
+      "source_name": "Public phone verification registry",
+      "notes": "Mess is closed on Sunday lunch.",
+      "listing_views": 64,
+      "contact_clicks": 4,
+      "whatsapp_clicks": 0,
+      "map_clicks": 8,
+      "phone_clicks": 5,
+      "created_at": "2026-08-10T12:00:00Z",
+      "updated_at": "2026-09-10T09:15:00Z"
+    },
+    {
+      "id": "hostel-boys-johar-town",
+      "slug": "boys-hostel-johar-town-lahore",
+      "name": "Boys Hostel Johar Town Lahore",
+      "gender": "Boys",
+      "area": "Johar Town",
+      "sub_area": "Phase 1, Block R",
+      "full_address": "Plot 418, Block R-1, Johar Town, Near UMT Campus, Lahore",
+      "description": "Walking distance to UMT Main Campus. Well-managed student accommodation with high-speed internet, separate study desks, and dedicated mess service.",
+      "monthly_rent_min": 16000,
+      "monthly_rent_max": 26000,
+      "security_deposit": 8000,
+      "room_type": "Double",
+      "room_options": [
+        "Single",
+        "Double",
+        "Triple"
+      ],
+      "capacity": 60,
+      "availability_status": "Available",
+      "available_beds": 5,
+      "furnished": true,
+      "ac": true,
+      "attached_bathroom": true,
+      "wifi": true,
+      "wifi_speed": "50 Mbps Fiberlink",
+      "electricity": "Sub-meter for AC rooms (Additional)",
+      "backup": "Generator",
+      "mess": true,
+      "mess_frequency": "3 times daily",
+      "laundry": true,
+      "parking": true,
+      "cctv": true,
+      "security_guard": true,
+      "study_room": true,
+      "kitchen": true,
+      "generator": true,
+      "water": true,
+      "geyser": true,
+      "cleaning": true,
+      "contact_name": "Chaudhry Nadeem",
+      "phone": "03009415522",
+      "whatsapp": "923009415522",
+      "website": "",
+      "instagram": "",
+      "facebook": "",
+      "google_maps_url": "https://maps.google.com/?q=Block+R1+Johar+Town+Lahore",
+      "latitude": 31.452,
+      "longitude": 74.295,
+      "photos": [],
+      "pricing_breakdown": {
+        "monthly_rent_text": "PKR 16,000 – 26,000 / month",
+        "security_deposit_text": "PKR 8,000 (Refundable upon 1 month notice)",
+        "electricity": {
+          "type": "Additional",
+          "description": "Standard fan/lights included; AC units billed per kWh unit consumed at official LESCO rates (Additional)."
+        },
+        "mess": {
+          "type": "Included",
+          "description": "Full 3 meals daily (Breakfast, Lunch & Dinner) included in monthly rent (Included)."
+        },
+        "other_charges": {
+          "has_charges": true,
+          "description": "PKR 1,500 one-time registration and room setup fee."
+        }
+      },
+      "verification_status": "Verified",
+      "verified_date": "2026-08-28",
+      "last_checked": "2026-09-22",
+      "featured": true,
+      "published": true,
+      "nearby_universities": [
+        {
+          "university_id": "uni-umt",
+          "university_name": "University of Management and Technology (UMT)",
+          "distance_km": 0.4,
+          "distance_text": "400 meters (5 min walk)"
+        },
+        {
+          "university_id": "uni-ucp",
+          "university_name": "University of Central Punjab (UCP)",
+          "distance_km": 2.8,
+          "distance_text": "2.8 km (8 min bike ride)"
+        }
+      ],
+      "source_url": "https://maps.google.com/?q=Block+R1+Johar+Town+Lahore",
+      "source_name": "Admin On-Site Inspection",
+      "notes": "AC billing is billed per kWh unit consumed at official LESCO rates.",
+      "listing_views": 310,
+      "contact_clicks": 42,
+      "whatsapp_clicks": 58,
+      "map_clicks": 76,
+      "phone_clicks": 29,
+      "created_at": "2026-08-12T14:00:00Z",
+      "updated_at": "2026-09-22T16:00:00Z"
+    },
+    {
+      "id": "hostel-new-student-johar-town",
+      "slug": "new-student-hostel-johar-town",
+      "name": "New Student Hostel",
+      "gender": "Boys",
+      "area": "Johar Town",
+      "sub_area": "Phase 2, Block G",
+      "full_address": "Block G-3, Near Shaukat Khanum Hospital, Johar Town, Lahore",
+      "description": "Clean, modern facility catering to both university students and medical interns. Peaceful residential street away from heavy commercial noise.",
+      "monthly_rent_min": 15000,
+      "monthly_rent_max": 24000,
+      "security_deposit": 6000,
+      "room_type": "Double",
+      "room_options": [
+        "Double",
+        "Triple",
+        "4-Seater"
+      ],
+      "capacity": 40,
+      "availability_status": "Available",
+      "available_beds": 3,
+      "furnished": true,
+      "ac": true,
+      "attached_bathroom": true,
+      "wifi": true,
+      "wifi_speed": "30 Mbps Nayatel",
+      "electricity": "Sub-meter billing (Additional for AC)",
+      "backup": "UPS",
+      "mess": true,
+      "mess_frequency": "2 meals daily",
+      "laundry": true,
+      "parking": true,
+      "cctv": true,
+      "security_guard": true,
+      "study_room": true,
+      "kitchen": false,
+      "generator": false,
+      "water": true,
+      "geyser": true,
+      "cleaning": true,
+      "contact_name": "Rana Asif (Caretaker)",
+      "phone": "03228491122",
+      "whatsapp": "923228491122",
+      "website": "",
+      "instagram": "",
+      "facebook": "",
+      "google_maps_url": "https://maps.google.com/?q=Block+G3+Johar+Town+Lahore",
+      "latitude": 31.468,
+      "longitude": 74.279,
+      "photos": [],
+      "pricing_breakdown": {
+        "monthly_rent_text": "PKR 15,000 – 24,000 / month",
+        "security_deposit_text": "PKR 6,000 (Refundable deposit)",
+        "electricity": {
+          "type": "Additional",
+          "description": "AC rooms billed separately per sub-meter reading (Additional). Non-AC electricity included."
+        },
+        "mess": {
+          "type": "Included",
+          "description": "2 meals daily (Lunch and Dinner) included in monthly rent (Included)."
+        },
+        "other_charges": {
+          "has_charges": false,
+          "description": "None reported"
+        }
+      },
+      "verification_status": "Pending Verification",
+      "verified_date": null,
+      "last_checked": "2026-09-17",
+      "featured": false,
+      "published": true,
+      "nearby_universities": [
+        {
+          "university_id": "uni-bahria",
+          "university_name": "Bahria University Lahore Campus",
+          "distance_km": 1.1,
+          "distance_text": "1.1 km"
+        },
+        {
+          "university_id": "uni-umt",
+          "university_name": "University of Management and Technology (UMT)",
+          "distance_km": 2.3,
+          "distance_text": "2.3 km"
+        }
+      ],
+      "source_url": "",
+      "source_name": "Public notice board Johar Town",
+      "notes": "Smoking strictly prohibited in all rooms and corridors.",
+      "listing_views": 112,
+      "contact_clicks": 14,
+      "whatsapp_clicks": 19,
+      "map_clicks": 22,
+      "phone_clicks": 9,
+      "created_at": "2026-08-15T11:00:00Z",
+      "updated_at": "2026-09-17T12:00:00Z"
+    },
+    {
+      "id": "hostel-lahore-girls-johar-town",
+      "slug": "lahore-hostel-girls-branch-johar-town",
+      "name": "Lahore Hostel Girls Branch Johar Town",
+      "gender": "Girls",
+      "area": "Johar Town",
+      "sub_area": "Phase 1, Block C",
+      "full_address": "Plot 72, Block C-1, Johar Town, Near Khayaban-e-Firdousi, Lahore",
+      "description": "Dedicated female student hostel with 24/7 security guard, biometric entry, home-style fresh mess, and study hall. Close to UCP and UMT.",
+      "monthly_rent_min": 18000,
+      "monthly_rent_max": 30000,
+      "security_deposit": 10000,
+      "room_type": "Double",
+      "room_options": [
+        "Single",
+        "Double",
+        "Triple",
+        "4-Seater"
+      ],
+      "capacity": 70,
+      "availability_status": "Limited Availability",
+      "available_beds": 2,
+      "furnished": true,
+      "ac": true,
+      "attached_bathroom": true,
+      "wifi": true,
+      "wifi_speed": "50 Mbps StormFiber",
+      "electricity": "Sub-meter for AC units (Additional)",
+      "backup": "Generator",
+      "mess": true,
+      "mess_frequency": "3 times daily (Breakfast, Lunch & Dinner)",
+      "laundry": true,
+      "parking": false,
+      "cctv": true,
+      "security_guard": true,
+      "study_room": true,
+      "kitchen": true,
+      "generator": true,
+      "water": true,
+      "geyser": true,
+      "cleaning": true,
+      "contact_name": "Mrs. Farzana (Matron)",
+      "phone": "03018442200",
+      "whatsapp": "923018442200",
+      "website": "",
+      "instagram": "",
+      "facebook": "",
+      "google_maps_url": "https://maps.google.com/?q=Block+C1+Johar+Town+Lahore",
+      "latitude": 31.465,
+      "longitude": 74.298,
+      "photos": [],
+      "pricing_breakdown": {
+        "monthly_rent_text": "PKR 18,000 – 30,000 / month",
+        "security_deposit_text": "PKR 10,000 (Refundable security deposit)",
+        "electricity": {
+          "type": "Additional",
+          "description": "UPS/Generator basic power included; AC power billed per sub-meter units (Additional)."
+        },
+        "mess": {
+          "type": "Included",
+          "description": "Full 3 meals daily (Breakfast, Lunch & Dinner) included in monthly package (Included)."
+        },
+        "other_charges": {
+          "has_charges": true,
+          "description": "PKR 2,000 one-time admission & biometric registration fee."
+        }
+      },
+      "verification_status": "Verified",
+      "verified_date": "2026-08-25",
+      "last_checked": "2026-09-24",
+      "featured": true,
+      "published": true,
+      "nearby_universities": [
+        {
+          "university_id": "uni-umt",
+          "university_name": "University of Management and Technology (UMT)",
+          "distance_km": 1.2,
+          "distance_text": "1.2 km"
+        },
+        {
+          "university_id": "uni-ucp",
+          "university_name": "University of Central Punjab (UCP)",
+          "distance_km": 2.2,
+          "distance_text": "2.2 km"
+        }
+      ],
+      "source_url": "https://maps.google.com/?q=Block+C1+Johar+Town+Lahore",
+      "source_name": "Verified Admin Directory Inspection",
+      "notes": "Strict curfew at 8:30 PM in winter, 9:00 PM in summer. Parent authorization required for night stays outside.",
+      "listing_views": 450,
+      "contact_clicks": 65,
+      "whatsapp_clicks": 88,
+      "map_clicks": 94,
+      "phone_clicks": 41,
+      "created_at": "2026-08-02T10:00:00Z",
+      "updated_at": "2026-09-24T10:15:00Z"
+    },
+    {
+      "id": "hostel-al-zahra-girls-johar-town",
+      "slug": "al-zahra-girls-hostel-johar-town",
+      "name": "Al Zahra Girls Hostel",
+      "gender": "Girls",
+      "area": "Johar Town",
+      "sub_area": "Phase 1, Block J",
+      "full_address": "House # 312, Block J-2, Johar Town, Near Allah Hoo Chowk, Lahore",
+      "description": "Safe and peaceful student hostel managed by family. Clean water filter, quiet environment for medical and engineering students.",
+      "monthly_rent_min": 16000,
+      "monthly_rent_max": 25000,
+      "security_deposit": 8000,
+      "room_type": "Double",
+      "room_options": [
+        "Double",
+        "Triple",
+        "4-Seater"
+      ],
+      "capacity": 35,
+      "availability_status": "Available",
+      "available_beds": 4,
+      "furnished": true,
+      "ac": true,
+      "attached_bathroom": true,
+      "wifi": true,
+      "wifi_speed": "30 Mbps PTCL Flash Fiber",
+      "electricity": "Sub-meter billed (Additional for AC)",
+      "backup": "UPS",
+      "mess": true,
+      "mess_frequency": "2 meals daily (Lunch & Dinner)",
+      "laundry": true,
+      "parking": false,
+      "cctv": true,
+      "security_guard": true,
+      "study_room": true,
+      "kitchen": false,
+      "generator": false,
+      "water": true,
+      "geyser": true,
+      "cleaning": true,
+      "contact_name": "Warden Office",
+      "phone": "03234988771",
+      "whatsapp": "923234988771",
+      "website": "",
+      "instagram": "",
+      "facebook": "",
+      "google_maps_url": "https://maps.google.com/?q=Block+J2+Johar+Town+Lahore",
+      "latitude": 31.469,
+      "longitude": 74.288,
+      "photos": [],
+      "pricing_breakdown": {
+        "monthly_rent_text": "PKR 16,000 – 25,000 / month",
+        "security_deposit_text": "PKR 8,000 (Refundable deposit)",
+        "electricity": {
+          "type": "Additional",
+          "description": "AC sub-metered and billed according to monthly unit consumption (Additional)."
+        },
+        "mess": {
+          "type": "Included",
+          "description": "2 meals daily (Lunch & Dinner) included in monthly rent (Included)."
+        },
+        "other_charges": {
+          "has_charges": false,
+          "description": "No extra monthly maintenance fees."
+        }
+      },
+      "verification_status": "Pending Verification",
+      "verified_date": null,
+      "last_checked": "2026-09-19",
+      "featured": false,
+      "published": true,
+      "nearby_universities": [
+        {
+          "university_id": "uni-umt",
+          "university_name": "University of Management and Technology (UMT)",
+          "distance_km": 1.5,
+          "distance_text": "1.5 km"
+        }
+      ],
+      "source_url": "",
+      "source_name": "Johar Town Student Accommodation Board",
+      "notes": "Only female guardians allowed to visit student rooms.",
+      "listing_views": 180,
+      "contact_clicks": 22,
+      "whatsapp_clicks": 31,
+      "map_clicks": 39,
+      "phone_clicks": 14,
+      "created_at": "2026-08-16T12:00:00Z",
+      "updated_at": "2026-09-19T15:00:00Z"
+    },
+    {
+      "id": "hostel-110-girls-johar-town",
+      "slug": "110-girls-hostel-johar-town",
+      "name": "110 Girls Hostel",
+      "gender": "Girls",
+      "area": "Johar Town",
+      "sub_area": "Phase 2, Block L",
+      "full_address": "House # 110, Block L, Johar Town, Near Expo Centre, Lahore",
+      "description": "Modern building near Expo Centre and Emporium Mall. Suitable for students attending UCP or university campuses nearby.",
+      "monthly_rent_min": 17000,
+      "monthly_rent_max": 28000,
+      "security_deposit": 8000,
+      "room_type": "Double",
+      "room_options": [
+        "Double",
+        "Triple"
+      ],
+      "capacity": 28,
+      "availability_status": "Full",
+      "available_beds": 0,
+      "furnished": true,
+      "ac": true,
+      "attached_bathroom": true,
+      "wifi": true,
+      "wifi_speed": "Not provided",
+      "electricity": "Sub-meter billed (Additional)",
+      "backup": "UPS",
+      "mess": true,
+      "mess_frequency": "2 meals daily",
+      "laundry": true,
+      "parking": false,
+      "cctv": true,
+      "security_guard": true,
+      "study_room": false,
+      "kitchen": false,
+      "generator": false,
+      "water": true,
+      "geyser": true,
+      "cleaning": true,
+      "contact_name": "Hostel Manager",
+      "phone": "03027811990",
+      "whatsapp": "923027811990",
+      "website": "",
+      "instagram": "",
+      "facebook": "",
+      "google_maps_url": "https://maps.google.com/?q=Block+L+Johar+Town+Lahore",
+      "latitude": 31.461,
+      "longitude": 74.275,
+      "photos": [],
+      "pricing_breakdown": {
+        "monthly_rent_text": "PKR 17,000 – 28,000 / month",
+        "security_deposit_text": "PKR 8,000 (Refundable security)",
+        "electricity": {
+          "type": "Additional",
+          "description": "AC billed per sub-meter (Additional). Standard light and fans included."
+        },
+        "mess": {
+          "type": "Included",
+          "description": "2 meals daily included in monthly rent (Included)."
+        },
+        "other_charges": {
+          "has_charges": false,
+          "description": "None reported"
+        }
+      },
+      "verification_status": "Unverified",
+      "verified_date": null,
+      "last_checked": "2026-09-12",
+      "featured": false,
+      "published": true,
+      "nearby_universities": [
+        {
+          "university_id": "uni-ucp",
+          "university_name": "University of Central Punjab (UCP)",
+          "distance_km": 1.6,
+          "distance_text": "1.6 km"
+        }
+      ],
+      "source_url": "",
+      "source_name": "Local area listing",
+      "notes": "Currently operating at full capacity. Call to check waitlist for next term.",
+      "listing_views": 95,
+      "contact_clicks": 8,
+      "whatsapp_clicks": 12,
+      "map_clicks": 17,
+      "phone_clicks": 5,
+      "created_at": "2026-08-20T08:00:00Z",
+      "updated_at": "2026-09-12T10:00:00Z"
+    },
+    {
+      "id": "hostel-qureshi-girls-muslim-town",
+      "slug": "qureshi-girls-hostel-muslim-town",
+      "name": "Qureshi Girls Hostel",
+      "gender": "Girls",
+      "area": "Muslim Town",
+      "sub_area": "New Muslim Town",
+      "full_address": "Street 4, New Muslim Town, Near Ayubia Market, Lahore",
+      "description": "Long-running female hostel in Muslim Town with homely atmosphere. Highly popular among Punjab University New Campus students.",
+      "monthly_rent_min": 15000,
+      "monthly_rent_max": 22000,
+      "security_deposit": 6000,
+      "room_type": "Triple",
+      "room_options": [
+        "Double",
+        "Triple",
+        "4-Seater"
+      ],
+      "capacity": 40,
+      "availability_status": "Limited Availability",
+      "available_beds": 1,
+      "furnished": true,
+      "ac": false,
+      "attached_bathroom": true,
+      "wifi": true,
+      "wifi_speed": "Not provided",
+      "electricity": "Included in rent",
+      "backup": "UPS",
+      "mess": true,
+      "mess_frequency": "3 times daily",
+      "laundry": true,
+      "parking": false,
+      "cctv": true,
+      "security_guard": true,
+      "study_room": true,
+      "kitchen": false,
+      "generator": false,
+      "water": true,
+      "geyser": true,
+      "cleaning": true,
+      "contact_name": "Mrs. Qureshi",
+      "phone": "03314561234",
+      "whatsapp": "",
+      "website": "",
+      "instagram": "",
+      "facebook": "",
+      "google_maps_url": "https://maps.google.com/?q=Ayubia+Market+Muslim+Town+Lahore",
+      "latitude": 31.514,
+      "longitude": 74.319,
+      "photos": [],
+      "pricing_breakdown": {
+        "monthly_rent_text": "PKR 15,000 – 22,000 / month",
+        "security_deposit_text": "PKR 6,000 (Refundable deposit)",
+        "electricity": {
+          "type": "Included",
+          "description": "Standard fan and room lighting included in base rent (Included)."
+        },
+        "mess": {
+          "type": "Included",
+          "description": "3 meals daily included in rent package (Included)."
+        },
+        "other_charges": {
+          "has_charges": false,
+          "description": "None reported"
+        }
+      },
+      "verification_status": "Pending Verification",
+      "verified_date": null,
+      "last_checked": "2026-09-16",
+      "featured": false,
+      "published": true,
+      "nearby_universities": [
+        {
+          "university_id": "uni-pu",
+          "university_name": "University of the Punjab (PU)",
+          "distance_km": 1.6,
+          "distance_text": "1.6 km (Direct route via Canal Rd)"
+        }
+      ],
+      "source_url": "",
+      "source_name": "Public classifieds archive",
+      "notes": "WhatsApp not registered for primary number. Contact via direct phone call during daytime.",
+      "listing_views": 130,
+      "contact_clicks": 16,
+      "whatsapp_clicks": 0,
+      "map_clicks": 25,
+      "phone_clicks": 15,
+      "created_at": "2026-08-08T09:30:00Z",
+      "updated_at": "2026-09-16T13:45:00Z"
+    },
+    {
+      "id": "hostel-global-girls-lahore",
+      "slug": "global-girls-hostel-lahore",
+      "name": "Global Girls Hostel",
+      "gender": "Girls",
+      "area": "Faisal Town",
+      "sub_area": "Block C, Near Fast University",
+      "full_address": "House 88, Block C, Faisal Town, Adjacent to FAST University, Lahore",
+      "description": "Strategic location for female students studying at FAST-NUCES, UMT, or Punjab University. Includes quiet study hall and high speed fiber internet.",
+      "monthly_rent_min": 17000,
+      "monthly_rent_max": 27000,
+      "security_deposit": 7000,
+      "room_type": "Double",
+      "room_options": [
+        "Double",
+        "Triple",
+        "Shared"
+      ],
+      "capacity": 48,
+      "availability_status": "Available",
+      "available_beds": 5,
+      "furnished": true,
+      "ac": true,
+      "attached_bathroom": true,
+      "wifi": true,
+      "wifi_speed": "40 Mbps Nayatel",
+      "electricity": "Sub-meter for AC (Additional)",
+      "backup": "UPS",
+      "mess": true,
+      "mess_frequency": "2 meals daily",
+      "laundry": true,
+      "parking": true,
+      "cctv": true,
+      "security_guard": true,
+      "study_room": true,
+      "kitchen": true,
+      "generator": false,
+      "water": true,
+      "geyser": true,
+      "cleaning": true,
+      "contact_name": "Management Desk",
+      "phone": "03008431100",
+      "whatsapp": "923008431100",
+      "website": "",
+      "instagram": "",
+      "facebook": "",
+      "google_maps_url": "https://maps.google.com/?q=Block+C+Faisal+Town+Lahore",
+      "latitude": 31.482,
+      "longitude": 74.305,
+      "photos": [],
+      "pricing_breakdown": {
+        "monthly_rent_text": "PKR 17,000 – 27,000 / month",
+        "security_deposit_text": "PKR 7,000 (Refundable security deposit)",
+        "electricity": {
+          "type": "Additional",
+          "description": "AC billed per sub-meter units (Additional). Regular room power included."
+        },
+        "mess": {
+          "type": "Included",
+          "description": "2 meals daily (Lunch and Dinner) included in monthly package (Included)."
+        },
+        "other_charges": {
+          "has_charges": false,
+          "description": "No extra monthly maintenance fees."
+        }
+      },
+      "verification_status": "Verified",
+      "verified_date": "2026-08-18",
+      "last_checked": "2026-09-20",
+      "featured": true,
+      "published": true,
+      "nearby_universities": [
+        {
+          "university_id": "uni-fast",
+          "university_name": "FAST-NUCES Lahore",
+          "distance_km": 0.3,
+          "distance_text": "300 meters (3 min walk)"
+        },
+        {
+          "university_id": "uni-pu",
+          "university_name": "University of the Punjab (PU)",
+          "distance_km": 2.2,
+          "distance_text": "2.2 km"
+        }
+      ],
+      "source_url": "https://maps.google.com/?q=Block+C+Faisal+Town+Lahore",
+      "source_name": "FAST student accommodation guide",
+      "notes": "Fingerprint scanner gate access for residents.",
+      "listing_views": 220,
+      "contact_clicks": 34,
+      "whatsapp_clicks": 46,
+      "map_clicks": 51,
+      "phone_clicks": 21,
+      "created_at": "2026-08-11T11:00:00Z",
+      "updated_at": "2026-09-20T17:00:00Z"
+    },
+    {
+      "id": "hostel-al-nisa-homes-girls-raiwind",
+      "slug": "al-nisa-homes-girls-hostel-raiwind-road",
+      "name": "Al-Nisa Homes Girls Hostel",
+      "gender": "Girls",
+      "area": "Raiwind Road",
+      "sub_area": "Ali Town / Near Metro Bus Terminal",
+      "full_address": "Ali Town, Main Raiwind Road, Near Thokar Orange Line Terminal, Lahore",
+      "description": "Purpose-built accommodation near Orange Line Metro Train station. Excellent connectivity for students traveling to UOL, Superior University, and COMSATS.",
+      "monthly_rent_min": 15000,
+      "monthly_rent_max": 26000,
+      "security_deposit": 8000,
+      "room_type": "Double",
+      "room_options": [
+        "Double",
+        "Triple",
+        "4-Seater"
+      ],
+      "capacity": 65,
+      "availability_status": "Available",
+      "available_beds": 4,
+      "furnished": true,
+      "ac": true,
+      "attached_bathroom": true,
+      "wifi": true,
+      "wifi_speed": "30 Mbps",
+      "electricity": "Billed on unit consumption for AC (Additional)",
+      "backup": "Generator",
+      "mess": true,
+      "mess_frequency": "3 times daily",
+      "laundry": true,
+      "parking": true,
+      "cctv": true,
+      "security_guard": true,
+      "study_room": true,
+      "kitchen": true,
+      "generator": true,
+      "water": true,
+      "geyser": true,
+      "cleaning": true,
+      "contact_name": "Ms. Rubina (Hostel Incharge)",
+      "phone": "03049182345",
+      "whatsapp": "923049182345",
+      "website": "",
+      "instagram": "",
+      "facebook": "",
+      "google_maps_url": "https://maps.google.com/?q=Ali+Town+Raiwind+Road+Lahore",
+      "latitude": 31.432,
+      "longitude": 74.248,
+      "photos": [],
+      "pricing_breakdown": {
+        "monthly_rent_text": "PKR 15,000 – 26,000 / month",
+        "security_deposit_text": "PKR 8,000 (Refundable deposit)",
+        "electricity": {
+          "type": "Additional",
+          "description": "AC unit consumption billed monthly per sub-meter (Additional)."
+        },
+        "mess": {
+          "type": "Included",
+          "description": "3 meals daily included in monthly rent (Included)."
+        },
+        "other_charges": {
+          "has_charges": true,
+          "description": "Optional private university coaster transport service available for UOL/COMSATS at additional PKR 3,500/month."
+        }
+      },
+      "verification_status": "Pending Verification",
+      "verified_date": null,
+      "last_checked": "2026-09-18",
+      "featured": false,
+      "published": true,
+      "nearby_universities": [
+        {
+          "university_id": "uni-uol",
+          "university_name": "University of Lahore (UOL)",
+          "distance_km": 4.5,
+          "distance_text": "4.5 km (Direct coaster available)"
+        },
+        {
+          "university_id": "uni-comsats",
+          "university_name": "COMSATS University Lahore",
+          "distance_km": 5.2,
+          "distance_text": "5.2 km"
+        }
+      ],
+      "source_url": "",
+      "source_name": "Orange Line Corridor Student Guide",
+      "notes": "Private transport coaster service operates for UOL and COMSATS students at additional monthly fee.",
+      "listing_views": 165,
+      "contact_clicks": 19,
+      "whatsapp_clicks": 28,
+      "map_clicks": 34,
+      "phone_clicks": 11,
+      "created_at": "2026-08-14T10:00:00Z",
+      "updated_at": "2026-09-18T16:20:00Z"
+    },
+    {
+      "id": "hostel-barkat-market-heights",
+      "slug": "barkat-market-heights-new-garden-town",
+      "name": "Barkat Market Heights",
+      "gender": "Boys",
+      "area": "Barkat Market",
+      "sub_area": "New Garden Town",
+      "full_address": "Commercial Block, Barkat Market, New Garden Town, Lahore",
+      "description": "Located in the student commercial epicenter of Lahore. Countless cafes, book shops, photocopiers, and PU Canal gate within 5 minutes walk.",
+      "monthly_rent_min": 16000,
+      "monthly_rent_max": 26000,
+      "security_deposit": 5000,
+      "room_type": "Double",
+      "room_options": [
+        "Single",
+        "Double",
+        "Triple"
+      ],
+      "capacity": 55,
+      "availability_status": "Available",
+      "available_beds": 3,
+      "furnished": true,
+      "ac": true,
+      "attached_bathroom": true,
+      "wifi": true,
+      "wifi_speed": "40 Mbps PTCL Fiber",
+      "electricity": "Sub-metered (Additional for AC)",
+      "backup": "UPS",
+      "mess": true,
+      "mess_frequency": "2 meals daily (Dinner & Lunch)",
+      "laundry": true,
+      "parking": false,
+      "cctv": true,
+      "security_guard": true,
+      "study_room": true,
+      "kitchen": false,
+      "generator": false,
+      "water": true,
+      "geyser": true,
+      "cleaning": true,
+      "contact_name": "Malik Tariq",
+      "phone": "03218844331",
+      "whatsapp": "923218844331",
+      "website": "",
+      "instagram": "",
+      "facebook": "",
+      "google_maps_url": "https://maps.google.com/?q=Barkat+Market+Garden+Town+Lahore",
+      "latitude": 31.506,
+      "longitude": 74.326,
+      "photos": [],
+      "pricing_breakdown": {
+        "monthly_rent_text": "PKR 16,000 – 26,000 / month",
+        "security_deposit_text": "PKR 5,000 (Refundable deposit)",
+        "electricity": {
+          "type": "Additional",
+          "description": "AC usage sub-metered and charged as per consumption (Additional). Non-AC electricity included."
+        },
+        "mess": {
+          "type": "Included",
+          "description": "2 meals daily (Dinner & Lunch) included in standard monthly rent (Included)."
+        },
+        "other_charges": {
+          "has_charges": false,
+          "description": "None reported"
+        }
+      },
+      "verification_status": "Verified",
+      "verified_date": "2026-08-30",
+      "last_checked": "2026-09-23",
+      "featured": true,
+      "published": true,
+      "nearby_universities": [
+        {
+          "university_id": "uni-pu",
+          "university_name": "University of the Punjab (PU)",
+          "distance_km": 0.9,
+          "distance_text": "900 meters (Walk to PU New Campus Gate)"
+        },
+        {
+          "university_id": "uni-fccu",
+          "university_name": "Forman Christian College University (FCCU)",
+          "distance_km": 2.5,
+          "distance_text": "2.5 km"
+        }
+      ],
+      "source_url": "https://maps.google.com/?q=Barkat+Market+Garden+Town+Lahore",
+      "source_name": "Garden Town Commercial Association Directory",
+      "notes": "Key card access. Mess menu rotates weekly with vegetarian and meat options.",
+      "listing_views": 290,
+      "contact_clicks": 39,
+      "whatsapp_clicks": 52,
+      "map_clicks": 68,
+      "phone_clicks": 26,
+      "created_at": "2026-08-04T12:00:00Z",
+      "updated_at": "2026-09-23T11:00:00Z"
+    },
+    {
+      "id": "hostel-pu-boys-hostel-area",
+      "slug": "pu-boys-hostel-canal-road",
+      "name": "PU Boys Hostel Area Private Residence",
+      "gender": "Boys",
+      "area": "Canal Road",
+      "sub_area": "Opposite PU Gate 4",
+      "full_address": "Canal Bank Road, Near Muslim Town Underpass, Lahore",
+      "description": "Private male hostel located directly adjacent to Canal Road, serving students seeking private off-campus rooms near PU departments.",
+      "monthly_rent_min": 13000,
+      "monthly_rent_max": 20000,
+      "security_deposit": 4000,
+      "room_type": "Triple",
+      "room_options": [
+        "Double",
+        "Triple",
+        "4-Seater"
+      ],
+      "capacity": 35,
+      "availability_status": "Available",
+      "available_beds": 2,
+      "furnished": true,
+      "ac": false,
+      "attached_bathroom": false,
+      "wifi": true,
+      "wifi_speed": "Not provided",
+      "electricity": "Included in rent",
+      "backup": "UPS",
+      "mess": true,
+      "mess_frequency": "2 meals daily",
+      "laundry": false,
+      "parking": true,
+      "cctv": true,
+      "security_guard": false,
+      "study_room": false,
+      "kitchen": false,
+      "generator": false,
+      "water": true,
+      "geyser": true,
+      "cleaning": true,
+      "contact_name": "Office Supervisor",
+      "phone": "03124455667",
+      "whatsapp": "",
+      "website": "",
+      "instagram": "",
+      "facebook": "",
+      "google_maps_url": "https://maps.google.com/?q=Canal+Bank+Road+Lahore",
+      "latitude": 31.508,
+      "longitude": 74.316,
+      "photos": [],
+      "pricing_breakdown": {
+        "monthly_rent_text": "PKR 13,000 – 20,000 / month",
+        "security_deposit_text": "PKR 4,000 (Refundable deposit)",
+        "electricity": {
+          "type": "Included",
+          "description": "Standard fan and room lighting included in base rent (Included)."
+        },
+        "mess": {
+          "type": "Included",
+          "description": "2 meals daily included in monthly rent (Included)."
+        },
+        "other_charges": {
+          "has_charges": false,
+          "description": "None reported"
+        }
+      },
+      "verification_status": "Unverified",
+      "verified_date": null,
+      "last_checked": "2026-09-08",
+      "featured": false,
+      "published": true,
+      "nearby_universities": [
+        {
+          "university_id": "uni-pu",
+          "university_name": "University of the Punjab (PU)",
+          "distance_km": 0.6,
+          "distance_text": "600 meters"
+        }
+      ],
+      "source_url": "",
+      "source_name": "Canal road student board",
+      "notes": "WhatsApp not available. Contact via direct phone.",
+      "listing_views": 78,
+      "contact_clicks": 6,
+      "whatsapp_clicks": 0,
+      "map_clicks": 11,
+      "phone_clicks": 7,
+      "created_at": "2026-08-18T14:00:00Z",
+      "updated_at": "2026-09-08T10:00:00Z"
+    },
+    {
+      "id": "hostel-uol-girls-defence-road",
+      "slug": "lahore-girls-hostel-uol-main-campus",
+      "name": "Lahore Girls Hostel UOL Main Campus",
+      "gender": "Girls",
+      "area": "Defence Road",
+      "sub_area": "Opposite UOL Gate 2",
+      "full_address": "Defence Road, Near Bhoptian Chowk, Opposite UOL Campus, Lahore",
+      "description": "Directly across from University of Lahore Main Campus on Defence Road. Equipped with full CCTV security, biometric security gate, generator backup for load shedding.",
+      "monthly_rent_min": 19000,
+      "monthly_rent_max": 32000,
+      "security_deposit": 10000,
+      "room_type": "Double",
+      "room_options": [
+        "Single",
+        "Double",
+        "Triple"
+      ],
+      "capacity": 80,
+      "availability_status": "Available",
+      "available_beds": 7,
+      "furnished": true,
+      "ac": true,
+      "attached_bathroom": true,
+      "wifi": true,
+      "wifi_speed": "50 Mbps Optical Fiber",
+      "electricity": "Sub-metered AC (Additional)",
+      "backup": "Generator",
+      "mess": true,
+      "mess_frequency": "3 times daily (Full mess included)",
+      "laundry": true,
+      "parking": true,
+      "cctv": true,
+      "security_guard": true,
+      "study_room": true,
+      "kitchen": true,
+      "generator": true,
+      "water": true,
+      "geyser": true,
+      "cleaning": true,
+      "contact_name": "Syeda Zahida (Warden)",
+      "phone": "03079988112",
+      "whatsapp": "923079988112",
+      "website": "",
+      "instagram": "",
+      "facebook": "",
+      "google_maps_url": "https://maps.google.com/?q=University+of+Lahore+Defence+Road",
+      "latitude": 31.394,
+      "longitude": 74.244,
+      "photos": [],
+      "pricing_breakdown": {
+        "monthly_rent_text": "PKR 19,000 – 32,000 / month",
+        "security_deposit_text": "PKR 10,000 (Refundable deposit upon 1 month vacate notice)",
+        "electricity": {
+          "type": "Additional",
+          "description": "24/7 generator backup for room lighting and fans included; AC power separately metered (Additional charges)."
+        },
+        "mess": {
+          "type": "Included",
+          "description": "Full 3 meals daily (Breakfast, Lunch & Dinner) included in all monthly room packages (Included)."
+        },
+        "other_charges": {
+          "has_charges": true,
+          "description": "PKR 2,000 one-time admission & keycard setup fee."
+        }
+      },
+      "verification_status": "Verified",
+      "verified_date": "2026-09-01",
+      "last_checked": "2026-09-25",
+      "featured": true,
+      "published": true,
+      "nearby_universities": [
+        {
+          "university_id": "uni-uol",
+          "university_name": "University of Lahore (UOL)",
+          "distance_km": 0.3,
+          "distance_text": "300 meters (Walk to gate)"
+        },
+        {
+          "university_id": "uni-comsats",
+          "university_name": "COMSATS University Lahore",
+          "distance_km": 3.5,
+          "distance_text": "3.5 km"
+        },
+        {
+          "university_id": "uni-superior",
+          "university_name": "Superior University",
+          "distance_km": 4,
+          "distance_text": "4.0 km"
+        }
+      ],
+      "source_url": "https://maps.google.com/?q=University+of+Lahore+Defence+Road",
+      "source_name": "Defence Road Accommodation Association",
+      "notes": "Generator runs during all electricity load shedding hours. Separate study floor.",
+      "listing_views": 390,
+      "contact_clicks": 53,
+      "whatsapp_clicks": 72,
+      "map_clicks": 81,
+      "phone_clicks": 37,
+      "created_at": "2026-08-03T11:00:00Z",
+      "updated_at": "2026-09-25T14:10:00Z"
+    },
+    {
+      "id": "hostel-haya-girls-anarkali",
+      "slug": "haya-hostel-for-girls-anarkali",
+      "name": "Haya Hostel for Girls",
+      "gender": "Girls",
+      "area": "Anarkali",
+      "sub_area": "Old Anarkali / Near Mall Road",
+      "full_address": "Bano Bazaar Lane, Old Anarkali, Near KEMU & LCWU, Lahore",
+      "description": "Traditional student accommodation in central Lahore, popular among medical students from King Edward Medical University and Kinnaird/LCWU day-commuters.",
+      "monthly_rent_min": 15000,
+      "monthly_rent_max": 23000,
+      "security_deposit": 5000,
+      "room_type": "Triple",
+      "room_options": [
+        "Double",
+        "Triple",
+        "4-Seater"
+      ],
+      "capacity": 40,
+      "availability_status": "Available",
+      "available_beds": 3,
+      "furnished": true,
+      "ac": false,
+      "attached_bathroom": true,
+      "wifi": true,
+      "wifi_speed": "20 Mbps PTCL",
+      "electricity": "Included in rent",
+      "backup": "UPS",
+      "mess": true,
+      "mess_frequency": "2 meals daily",
+      "laundry": true,
+      "parking": false,
+      "cctv": true,
+      "security_guard": true,
+      "study_room": true,
+      "kitchen": false,
+      "generator": false,
+      "water": true,
+      "geyser": true,
+      "cleaning": true,
+      "contact_name": "Mrs. Haya Begum",
+      "phone": "03004112233",
+      "whatsapp": "923004112233",
+      "website": "",
+      "instagram": "",
+      "facebook": "",
+      "google_maps_url": "https://maps.google.com/?q=Old+Anarkali+Lahore",
+      "latitude": 31.568,
+      "longitude": 74.312,
+      "photos": [],
+      "pricing_breakdown": {
+        "monthly_rent_text": "PKR 15,000 – 23,000 / month",
+        "security_deposit_text": "PKR 5,000 (Refundable deposit)",
+        "electricity": {
+          "type": "Included",
+          "description": "Standard fan and room lighting included in monthly rent (Included)."
+        },
+        "mess": {
+          "type": "Included",
+          "description": "2 meals daily included in rent (Included)."
+        },
+        "other_charges": {
+          "has_charges": false,
+          "description": "None reported"
+        }
+      },
+      "verification_status": "Pending Verification",
+      "verified_date": null,
+      "last_checked": "2026-09-14",
+      "featured": false,
+      "published": true,
+      "nearby_universities": [
+        {
+          "university_id": "uni-kemu",
+          "university_name": "King Edward Medical University (KEMU)",
+          "distance_km": 0.7,
+          "distance_text": "700 meters (8 min walk)"
+        },
+        {
+          "university_id": "uni-lcwu",
+          "university_name": "Lahore College for Women University (LCWU)",
+          "distance_km": 2.8,
+          "distance_text": "2.8 km"
+        }
+      ],
+      "source_url": "https://maps.google.com/?q=Old+Anarkali+Lahore",
+      "source_name": "Anarkali student hostel notice index",
+      "notes": "Gated entrance with female warden living on premises. Strict evening return policy.",
+      "listing_views": 145,
+      "contact_clicks": 18,
+      "whatsapp_clicks": 22,
+      "map_clicks": 29,
+      "phone_clicks": 12,
+      "created_at": "2026-08-09T13:00:00Z",
+      "updated_at": "2026-09-14T11:00:00Z"
+    }
+  ],
+  "areas": [
+    {
+      "id": "area-garden-town",
+      "name": "Garden Town",
+      "slug": "garden-town",
+      "popular": true
+    },
+    {
+      "id": "area-new-garden-town",
+      "name": "New Garden Town",
+      "slug": "new-garden-town",
+      "popular": true
+    },
+    {
+      "id": "area-barkat-market",
+      "name": "Barkat Market",
+      "slug": "barkat-market",
+      "popular": true
+    },
+    {
+      "id": "area-muslim-town",
+      "name": "Muslim Town",
+      "slug": "muslim-town",
+      "popular": true
+    },
+    {
+      "id": "area-gulberg",
+      "name": "Gulberg",
+      "slug": "gulberg",
+      "popular": true
+    },
+    {
+      "id": "area-gulberg-2",
+      "name": "Gulberg II",
+      "slug": "gulberg-ii"
+    },
+    {
+      "id": "area-gulberg-3",
+      "name": "Gulberg III",
+      "slug": "gulberg-iii"
+    },
+    {
+      "id": "area-johar-town",
+      "name": "Johar Town",
+      "slug": "johar-town",
+      "popular": true
+    },
+    {
+      "id": "area-johar-town-1",
+      "name": "Johar Town Phase 1",
+      "slug": "johar-town-phase-1"
+    },
+    {
+      "id": "area-johar-town-2",
+      "name": "Johar Town Phase 2",
+      "slug": "johar-town-phase-2"
+    },
+    {
+      "id": "area-faisal-town",
+      "name": "Faisal Town",
+      "slug": "faisal-town",
+      "popular": true
+    },
+    {
+      "id": "area-model-town",
+      "name": "Model Town",
+      "slug": "model-town",
+      "popular": true
+    },
+    {
+      "id": "area-township",
+      "name": "Township",
+      "slug": "township"
+    },
+    {
+      "id": "area-allama-iqbal-town",
+      "name": "Allama Iqbal Town",
+      "slug": "allama-iqbal-town"
+    },
+    {
+      "id": "area-raiwind-road",
+      "name": "Raiwind Road",
+      "slug": "raiwind-road",
+      "popular": true
+    },
+    {
+      "id": "area-thokar-niaz-baig",
+      "name": "Thokar Niaz Baig",
+      "slug": "thokar-niaz-baig"
+    },
+    {
+      "id": "area-dha",
+      "name": "DHA",
+      "slug": "dha",
+      "popular": true
+    },
+    {
+      "id": "area-defence-road",
+      "name": "Defence Road",
+      "slug": "defence-road"
+    },
+    {
+      "id": "area-wapda-town",
+      "name": "Wapda Town",
+      "slug": "wapda-town"
+    },
+    {
+      "id": "area-valencia-town",
+      "name": "Valencia Town",
+      "slug": "valencia-town"
+    },
+    {
+      "id": "area-canal-road",
+      "name": "Canal Road",
+      "slug": "canal-road"
+    },
+    {
+      "id": "area-mall-road",
+      "name": "Mall Road",
+      "slug": "mall-road"
+    },
+    {
+      "id": "area-anarkali",
+      "name": "Anarkali",
+      "slug": "anarkali"
+    },
+    {
+      "id": "area-lower-mall",
+      "name": "Lower Mall",
+      "slug": "lower-mall"
+    },
+    {
+      "id": "area-shadman",
+      "name": "Shadman",
+      "slug": "shadman"
+    },
+    {
+      "id": "area-ichhra",
+      "name": "Ichhra",
+      "slug": "ichhra"
+    },
+    {
+      "id": "area-rehmanpura",
+      "name": "Rehmanpura",
+      "slug": "rehmanpura"
+    },
+    {
+      "id": "area-ferozepur-road",
+      "name": "Ferozepur Road",
+      "slug": "ferozepur-road"
+    },
+    {
+      "id": "area-lahore-cantt",
+      "name": "Lahore Cantt",
+      "slug": "lahore-cantt"
+    },
+    {
+      "id": "area-bedian",
+      "name": "Bedian",
+      "slug": "bedian"
+    },
+    {
+      "id": "area-other",
+      "name": "Other Lahore Areas",
+      "slug": "other-lahore-areas"
+    }
+  ],
+  "universities": [
+    {
+      "id": "uni-pu",
+      "name": "University of the Punjab (PU)",
+      "short_name": "PU",
+      "area": "Canal Road / New Campus",
+      "latitude": 31.5034,
+      "longitude": 74.3033,
+      "address": "Quaid-i-Azam Campus, Canal Road, Lahore"
+    },
+    {
+      "id": "uni-umt",
+      "name": "University of Management and Technology (UMT)",
+      "short_name": "UMT",
+      "area": "Johar Town",
+      "latitude": 31.4504,
+      "longitude": 74.2938,
+      "address": "C-II, Johar Town, Lahore"
+    },
+    {
+      "id": "uni-ucp",
+      "name": "University of Central Punjab (UCP)",
+      "short_name": "UCP",
+      "area": "Johar Town",
+      "latitude": 31.4469,
+      "longitude": 74.2682,
+      "address": "1 - Khayaban-e-Jinnah, Johar Town, Lahore"
+    },
+    {
+      "id": "uni-uol",
+      "name": "University of Lahore (UOL)",
+      "short_name": "UOL",
+      "area": "Defence Road",
+      "latitude": 31.3934,
+      "longitude": 74.2425,
+      "address": "1-KM Defence Road, Bhoptian Chowk, Lahore"
+    },
+    {
+      "id": "uni-comsats",
+      "name": "COMSATS University Lahore",
+      "short_name": "COMSATS",
+      "area": "Defence Road",
+      "latitude": 31.4019,
+      "longitude": 74.2144,
+      "address": "Defence Road, Off Raiwind Road, Lahore"
+    },
+    {
+      "id": "uni-bahria",
+      "name": "Bahria University Lahore Campus",
+      "short_name": "Bahria",
+      "area": "Civic Centre, Johar Town",
+      "latitude": 31.4697,
+      "longitude": 74.2728,
+      "address": "47-C, Civic Centre, Johar Town, Lahore"
+    },
+    {
+      "id": "uni-lums",
+      "name": "Lahore University of Management Sciences (LUMS)",
+      "short_name": "LUMS",
+      "area": "DHA Phase 5",
+      "latitude": 31.4709,
+      "longitude": 74.4111,
+      "address": "DHA Phase 5, Khayaban-e-Jinnah, Cantt, Lahore"
+    },
+    {
+      "id": "uni-fccu",
+      "name": "Forman Christian College University (FCCU)",
+      "short_name": "FCCU",
+      "area": "Gulberg",
+      "latitude": 31.5204,
+      "longitude": 74.3317,
+      "address": "Zahir Pir Road, Gulberg III, Lahore"
+    },
+    {
+      "id": "uni-kinnaird",
+      "name": "Kinnaird College for Women",
+      "short_name": "Kinnaird",
+      "area": "Jail Road",
+      "latitude": 31.5398,
+      "longitude": 74.3385,
+      "address": "93-Jail Road, G.O.R. - I, Lahore"
+    },
+    {
+      "id": "uni-lcwu",
+      "name": "Lahore College for Women University (LCWU)",
+      "short_name": "LCWU",
+      "area": "Jail Road",
+      "latitude": 31.5432,
+      "longitude": 74.3341,
+      "address": "Near Jail Road, Jubilee Town, Lahore"
+    },
+    {
+      "id": "uni-uet",
+      "name": "University of Engineering and Technology (UET)",
+      "short_name": "UET",
+      "area": "GT Road",
+      "latitude": 31.5796,
+      "longitude": 74.3561,
+      "address": "GT Road, Staff Houses Engineering University, Lahore"
+    },
+    {
+      "id": "uni-superior",
+      "name": "Superior University",
+      "short_name": "Superior",
+      "area": "Raiwind Road",
+      "latitude": 31.3789,
+      "longitude": 74.2255,
+      "address": "Raiwind Road, Kot Araian, Lahore"
+    },
+    {
+      "id": "uni-riphah",
+      "name": "Riphah International University",
+      "short_name": "Riphah",
+      "area": "Raiwind Road",
+      "latitude": 31.3915,
+      "longitude": 74.2389,
+      "address": "Raiwind Road Campus, Lahore"
+    },
+    {
+      "id": "uni-minhaj",
+      "name": "Minhaj University Lahore",
+      "short_name": "Minhaj",
+      "area": "Township",
+      "latitude": 31.4398,
+      "longitude": 74.3167,
+      "address": "Hamdard Chowk, Township, Lahore"
+    },
+    {
+      "id": "uni-fast",
+      "name": "FAST-NUCES Lahore",
+      "short_name": "FAST",
+      "area": "Faisal Town",
+      "latitude": 31.4816,
+      "longitude": 74.3031,
+      "address": "Block B, Faisal Town, Lahore"
+    },
+    {
+      "id": "uni-kemu",
+      "name": "King Edward Medical University (KEMU)",
+      "short_name": "KEMU",
+      "area": "Anarkali / Mall Road",
+      "latitude": 31.5731,
+      "longitude": 74.3159,
+      "address": "Nila Gumbad, Anarkali, Lahore"
+    }
+  ],
+  "submissions": [],
+  "claims": [
+    {
+      "id": "claim-1790505607939-8fm7",
+      "hostel_id": "hostel-best-boys-muslim-town",
+      "hostel_name": "Best Boys Hostel",
+      "claimant_name": "Haji Tariq",
+      "claimant_role": "Warden",
+      "phone": "03004812345",
+      "whatsapp": "923004812345",
+      "email": "warden@bestboys.pk",
+      "proof_document_note": "Registered with Muslim Town Police station hostel register",
+      "proposed_changes": {},
+      "status": "Pending Review",
+      "submitted_at": "2026-09-27T10:40:07.939Z"
+    }
+  ]
+}
