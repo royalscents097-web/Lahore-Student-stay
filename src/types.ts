@@ -178,27 +178,32 @@ export interface UniversityItem {
 }
 
 export type LeadStatus = 'New' | 'Contacted' | 'Assigned' | 'Converted' | 'Not Converted' | 'Closed';
+export type PaymentStatus = 'Pending' | 'Paid' | 'Not Applicable';
 
 export interface LeadItem {
-  lead_id: string; // Unique ID, e.g. "LS-1047"
+  id: string;
+  lead_id: string; // Unique ID, format: LSS-YYYYMMDD-XXXX (e.g. "LSS-20260927-1047")
   hostel_id: string;
   hostel_name: string;
   visitor_name: string;
-  visitor_phone: string;
+  phone: string;
+  visitor_phone?: string;
   gender: GenderType;
   area: string;
   budget: string;
   room_type: string;
-  requirements: string[]; // e.g. ['Wi-Fi', 'Mess', 'AC', 'Furnished', 'Attached Bathroom', 'Parking', 'Electricity Backup']
-  source: string; // Fixed to "Lahore Student Stay"
+  move_in_date?: string;
+  requirements: string[];
+  source: string; // Default: "Lahore Student Stay"
   status: LeadStatus;
+  lead_fee: number; // Configurable lead fee (default: 500)
+  payment_status: PaymentStatus; // 'Pending' | 'Paid' | 'Not Applicable'
+  assigned_hostel: string; // Connected hostel name
   notes?: string;
   assigned_warden_name?: string;
   assigned_warden_phone?: string;
   assigned_warden_whatsapp?: string;
   assigned_at?: string;
-  lead_fee?: number; // Fee in PKR, e.g. 1500
-  fee_status?: 'Pending' | 'Paid' | 'Waived';
   created_at: string;
   updated_at: string;
 }

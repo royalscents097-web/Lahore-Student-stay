@@ -27,20 +27,25 @@ interface DatabaseSchema {
   claims: any[];
   leads: LeadItem[];
   leadCounter?: number;
+  default_lead_fee?: number;
 }
 
 // Initial realistic seed student leads for Lahore Student Stay
 const INITIAL_LEADS: LeadItem[] = [
   {
-    lead_id: 'LS-1041',
+    id: 'lead-1041',
+    lead_id: 'LSS-20260924-1041',
     hostel_id: 'hostel-johar-heights-boys',
     hostel_name: 'Johar Heights Boys Hostel',
+    assigned_hostel: 'Johar Heights Boys Hostel',
     visitor_name: 'Usman Tariq',
+    phone: '0301-4567890',
     visitor_phone: '0301-4567890',
     gender: 'Boys',
     area: 'Johar Town',
     budget: 'PKR 15,000 - 20,000',
     room_type: 'Double',
+    move_in_date: '2026-10-01',
     requirements: ['Wi-Fi', 'Mess', 'AC', 'Electricity Backup'],
     source: 'Lahore Student Stay',
     status: 'Converted',
@@ -49,21 +54,25 @@ const INITIAL_LEADS: LeadItem[] = [
     assigned_warden_phone: '0300-4123456',
     assigned_warden_whatsapp: '923004123456',
     assigned_at: '2026-09-24T14:30:00.000Z',
-    lead_fee: 1500,
-    fee_status: 'Paid',
+    lead_fee: 500,
+    payment_status: 'Paid',
     created_at: '2026-09-24T10:15:00.000Z',
     updated_at: '2026-09-25T16:00:00.000Z',
   },
   {
-    lead_id: 'LS-1042',
+    id: 'lead-1042',
+    lead_id: 'LSS-20260926-1042',
     hostel_id: 'hostel-fatima-jinnah-girls',
     hostel_name: 'Fatima Jinnah Executive Girls Hostel',
+    assigned_hostel: 'Fatima Jinnah Executive Girls Hostel',
     visitor_name: 'Ayesha Siddiqui',
+    phone: '0322-8765432',
     visitor_phone: '0322-8765432',
     gender: 'Girls',
     area: 'Garden Town',
     budget: 'PKR 18,000 - 25,000',
     room_type: 'Single',
+    move_in_date: '2026-10-05',
     requirements: ['Wi-Fi', 'Mess', 'AC', 'Attached Bathroom', 'Furnished'],
     source: 'Lahore Student Stay',
     status: 'Assigned',
@@ -72,80 +81,125 @@ const INITIAL_LEADS: LeadItem[] = [
     assigned_warden_phone: '0321-9876543',
     assigned_warden_whatsapp: '923219876543',
     assigned_at: '2026-09-26T11:20:00.000Z',
-    lead_fee: 2000,
-    fee_status: 'Pending',
+    lead_fee: 500,
+    payment_status: 'Pending',
     created_at: '2026-09-26T09:40:00.000Z',
     updated_at: '2026-09-26T11:20:00.000Z',
   },
   {
-    lead_id: 'LS-1043',
+    id: 'lead-1043',
+    lead_id: 'LSS-20260926-1043',
     hostel_id: 'hostel-al-rehman-barkat',
     hostel_name: 'Al-Rehman Boys Hostel Barkat Market',
+    assigned_hostel: 'Al-Rehman Boys Hostel Barkat Market',
     visitor_name: 'Bilal Ahmad',
+    phone: '0333-5551234',
     visitor_phone: '0333-5551234',
     gender: 'Boys',
     area: 'New Garden Town',
     budget: 'Under PKR 15,000',
     room_type: 'Triple',
+    move_in_date: '2026-10-10',
     requirements: ['Wi-Fi', 'Mess', 'Furnished'],
     source: 'Lahore Student Stay',
     status: 'Contacted',
     notes: 'Contacted student. Joining PU in October. Scheduled visit for tomorrow.',
+    lead_fee: 500,
+    payment_status: 'Pending',
     created_at: '2026-09-26T16:05:00.000Z',
     updated_at: '2026-09-26T17:10:00.000Z',
   },
   {
-    lead_id: 'LS-1044',
+    id: 'lead-1044',
+    lead_id: 'LSS-20260927-1044',
     hostel_id: 'hostel-model-town-scholars',
     hostel_name: 'Model Town Scholars Boys Hostel',
+    assigned_hostel: 'Model Town Scholars Boys Hostel',
     visitor_name: 'Hamza Sheikh',
+    phone: '0345-1239876',
     visitor_phone: '0345-1239876',
     gender: 'Boys',
     area: 'Model Town',
     budget: 'PKR 14,000 - 18,000',
     room_type: 'Double',
+    move_in_date: '2026-10-01',
     requirements: ['Wi-Fi', 'Mess', 'Attached Bathroom', 'Electricity Backup'],
     source: 'Lahore Student Stay',
     status: 'New',
     notes: 'Inquiry via guided search. Needs room from next week.',
+    lead_fee: 500,
+    payment_status: 'Pending',
     created_at: '2026-09-27T08:15:00.000Z',
     updated_at: '2026-09-27T08:15:00.000Z',
   },
   {
-    lead_id: 'LS-1045',
+    id: 'lead-1045',
+    lead_id: 'LSS-20260927-1045',
     hostel_id: 'hostel-zainab-muslim-town',
     hostel_name: 'Zainab Girls Hostel Muslim Town',
+    assigned_hostel: 'Zainab Girls Hostel Muslim Town',
     visitor_name: 'Fatima Noor',
+    phone: '0308-7776655',
     visitor_phone: '0308-7776655',
     gender: 'Girls',
     area: 'Muslim Town',
     budget: 'PKR 12,000 - 16,000',
     room_type: 'Shared',
+    move_in_date: '2026-10-15',
     requirements: ['Wi-Fi', 'Mess', 'Attached Bathroom'],
     source: 'Lahore Student Stay',
     status: 'New',
     notes: 'Looking for accommodation near Wahdat Road / PU new campus.',
+    lead_fee: 500,
+    payment_status: 'Pending',
     created_at: '2026-09-27T09:30:00.000Z',
     updated_at: '2026-09-27T09:30:00.000Z',
   },
   {
-    lead_id: 'LS-1046',
+    id: 'lead-1046',
+    lead_id: 'LSS-20260927-1046',
     hostel_id: 'hostel-gulberg-executive-boys',
     hostel_name: 'Gulberg Executive Boys Hostel',
+    assigned_hostel: 'Gulberg Executive Boys Hostel',
     visitor_name: 'Saad Rafiq',
+    phone: '0312-3344556',
     visitor_phone: '0312-3344556',
     gender: 'Boys',
     area: 'Gulberg III',
     budget: 'Above PKR 22,000',
     room_type: 'Single',
+    move_in_date: '2026-10-01',
     requirements: ['Wi-Fi', 'Mess', 'AC', 'Attached Bathroom', 'Parking', 'Electricity Backup'],
     source: 'Lahore Student Stay',
     status: 'New',
     notes: 'Internee at software house on MM Alam Road. Urgently looking for single room.',
+    lead_fee: 500,
+    payment_status: 'Pending',
     created_at: '2026-09-27T10:05:00.000Z',
     updated_at: '2026-09-27T10:05:00.000Z',
   },
 ];
+
+// Helper to generate unique Lead ID in format LSS-YYYYMMDD-XXXX (Section 2)
+function generateLeadId(db: DatabaseSchema): string {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  const dateStr = `${yyyy}${mm}${dd}`;
+
+  let counter = db.leadCounter || 1046;
+  counter += 1;
+  db.leadCounter = counter;
+
+  let leadId = `LSS-${dateStr}-${counter}`;
+  while (db.leads && db.leads.some(l => l.lead_id === leadId)) {
+    counter += 1;
+    db.leadCounter = counter;
+    leadId = `LSS-${dateStr}-${counter}`;
+  }
+  return leadId;
+}
 
 // In-memory token storage for admin sessions
 const activeAdminTokens = new Set<string>();
@@ -182,14 +236,53 @@ function getDatabase(): DatabaseSchema {
       };
     });
 
+    const defaultLeadFee = Number(parsed.default_lead_fee) || 500;
+    const mappedLeads: LeadItem[] = (parsed.leads || INITIAL_LEADS).map((l: any, idx: number) => {
+      let leadId = l.lead_id || `LSS-20260927-${1040 + idx}`;
+      if (!leadId.startsWith('LSS-')) {
+        const digits = leadId.replace(/[^0-9]/g, '');
+        leadId = `LSS-20260927-${digits || 1040 + idx}`;
+      }
+      const rawPhone = l.phone || l.visitor_phone || '0300-0000000';
+      const hostelName = l.hostel_name || 'General Lahore Hostel Match';
+      return {
+        id: l.id || `lead-${idx + 1040}`,
+        lead_id: leadId,
+        hostel_id: l.hostel_id || 'general',
+        hostel_name: hostelName,
+        visitor_name: l.visitor_name || 'Student',
+        phone: rawPhone,
+        visitor_phone: rawPhone,
+        gender: l.gender === 'Girls' ? 'Girls' : 'Boys',
+        area: l.area || 'Johar Town',
+        budget: l.budget || 'Standard',
+        room_type: l.room_type || 'Double',
+        move_in_date: l.move_in_date || '',
+        requirements: Array.isArray(l.requirements) ? l.requirements : [],
+        source: l.source || 'Lahore Student Stay',
+        status: l.status || 'New',
+        lead_fee: l.lead_fee !== undefined ? Number(l.lead_fee) : defaultLeadFee,
+        payment_status: l.payment_status || (l.fee_status === 'Paid' ? 'Paid' : 'Pending'),
+        assigned_hostel: l.assigned_hostel || hostelName,
+        notes: l.notes || '',
+        assigned_warden_name: l.assigned_warden_name,
+        assigned_warden_phone: l.assigned_warden_phone,
+        assigned_warden_whatsapp: l.assigned_warden_whatsapp,
+        assigned_at: l.assigned_at,
+        created_at: l.created_at || new Date().toISOString(),
+        updated_at: l.updated_at || new Date().toISOString(),
+      };
+    });
+
     return {
       hostels: mergedHostels,
       areas: parsed.areas || INITIAL_AREAS,
       universities: parsed.universities || INITIAL_UNIVERSITIES,
       submissions: parsed.submissions || [],
       claims: parsed.claims || [],
-      leads: parsed.leads || INITIAL_LEADS,
+      leads: mappedLeads,
       leadCounter: parsed.leadCounter || 1046,
+      default_lead_fee: defaultLeadFee,
     };
   } catch (err) {
     console.error('Error reading database, using defaults:', err);
@@ -711,59 +804,100 @@ app.post('/api/claim', (req: Request, res: Response) => {
   }
 });
 
-// 8. Student Lead Generation ("Contact this Hostel" - Business Model & Lead Gen)
+// 8. Student Lead Generation ("Contact / Enquire About This Hostel" - Section 1, 2, 3, 5)
 app.post('/api/leads', (req: Request, res: Response) => {
   try {
     const {
       visitor_name,
       visitor_phone,
+      phone,
       preferred_hostel,
       hostel_id,
+      hostel_name,
       gender,
       area,
       budget,
       room_type,
+      move_in_date,
       requirements,
       notes,
     } = req.body;
 
-    if (!visitor_name || !String(visitor_name).trim()) {
-      return res.status(400).json({ error: 'Student name is required.' });
+    const contactName = String(visitor_name || '').trim();
+    if (!contactName || contactName.length < 2) {
+      return res.status(400).json({ error: 'Full Name is required (minimum 2 characters).' });
     }
-    if (!visitor_phone || !String(visitor_phone).trim()) {
-      return res.status(400).json({ error: 'Contact phone number is required.' });
+
+    const rawPhone = String(phone || visitor_phone || '').trim();
+    if (!rawPhone) {
+      return res.status(400).json({ error: 'Phone Number is required.' });
+    }
+
+    // Strict validation: Reject obviously invalid phone numbers (Section 1)
+    if (/[a-zA-Z]/.test(rawPhone)) {
+      return res.status(400).json({ error: 'Phone number cannot contain alphabetic characters.' });
+    }
+    const digits = rawPhone.replace(/\D/g, '');
+    if (digits.length < 10 || digits.length > 13) {
+      return res.status(400).json({
+        error: 'Please enter a valid phone number (10 to 12 digits, e.g. 0300-1234567).',
+      });
+    }
+    if (/^(\d)\1+$/.test(digits)) {
+      return res.status(400).json({ error: 'Please enter a genuine phone number, not repeated digits.' });
+    }
+    if (digits === '1234567890' || digits === '0123456789' || digits === '0987654321') {
+      return res.status(400).json({ error: 'Please enter a genuine mobile number.' });
+    }
+    if (digits.length === 11 && !digits.startsWith('03')) {
+      return res.status(400).json({
+        error: 'Pakistani mobile numbers must start with 03 (e.g. 0300-1234567).',
+      });
+    }
+
+    if (!gender || (gender !== 'Boys' && gender !== 'Girls')) {
+      return res.status(400).json({ error: 'Category selection (Boys / Girls) is required.' });
+    }
+
+    const budgetVal = String(budget || '').trim();
+    if (!budgetVal) {
+      return res.status(400).json({ error: 'Monthly budget is required.' });
     }
 
     const db = getDatabase();
     if (!db.leads) db.leads = [...INITIAL_LEADS];
 
-    // Generate unique sequential lead_id, e.g. "LS-1047"
-    let counter = db.leadCounter || 1046;
-    counter += 1;
-    db.leadCounter = counter;
-    const leadId = `LS-${counter}`;
-
+    // Generate unique Lead ID in format LSS-YYYYMMDD-XXXX (Section 2)
+    const leadId = generateLeadId(db);
+    const assignedHostelName = hostel_name || preferred_hostel || 'General Lahore Hostel Match';
     const now = new Date().toISOString();
+
     const newLead: LeadItem = {
+      id: `lead_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
       lead_id: leadId,
       hostel_id: hostel_id || 'general',
-      hostel_name: preferred_hostel || 'General Lahore Hostel Inquiry',
-      visitor_name: String(visitor_name).trim(),
-      visitor_phone: String(visitor_phone).trim(),
+      hostel_name: assignedHostelName,
+      visitor_name: contactName,
+      phone: rawPhone,
+      visitor_phone: rawPhone,
       gender: gender === 'Girls' ? 'Girls' : 'Boys',
-      area: area || 'Lahore',
-      budget: budget || 'Not specified',
-      room_type: room_type || 'Any Room Type',
+      area: area || 'Johar Town',
+      budget: budgetVal,
+      room_type: room_type || 'Double',
+      move_in_date: move_in_date ? String(move_in_date).trim() : '',
       requirements: Array.isArray(requirements) ? requirements : [],
-      source: 'Lahore Student Stay', // Fixed source
-      status: 'New', // Default status: New
+      source: 'Lahore Student Stay', // Section 3 default
+      status: 'New', // Section 3 default
+      lead_fee: db.default_lead_fee || 500, // Section 3 default: Rs.500 (configurable)
+      payment_status: 'Pending', // Section 3 default: Pending
+      assigned_hostel: assignedHostelName, // Section 5
       notes: notes ? String(notes).trim() : '',
       created_at: now,
       updated_at: now,
     };
 
     // Pre-fill warden assignment information if known from hostel listing
-    const targetHostel = db.hostels.find(h => h.id === hostel_id || h.slug === hostel_id);
+    const targetHostel = db.hostels.find((h) => h.id === hostel_id || h.slug === hostel_id);
     if (targetHostel && (targetHostel.contact_name || targetHostel.phone)) {
       newLead.assigned_warden_name = targetHostel.contact_name || 'Hostel Management';
       newLead.assigned_warden_phone = targetHostel.phone || '';
@@ -776,7 +910,7 @@ app.post('/api/leads', (req: Request, res: Response) => {
 
     res.status(201).json({
       success: true,
-      message: 'Inquiry successfully submitted! Reference ID: ' + leadId,
+      message: 'Your hostel enquiry has been received.',
       lead_id: leadId,
       data: newLead,
     });
@@ -827,48 +961,67 @@ app.get('/api/admin/stats', requireAdmin, (_req: Request, res: Response) => {
 
     const stats: AdminStats = {
       totalHostels: hostels.length,
-      boysHostels: hostels.filter(h => h.gender === 'Boys').length,
-      girlsHostels: hostels.filter(h => h.gender === 'Girls').length,
-      verified: hostels.filter(h => h.verification_status === 'Verified').length,
-      pendingVerification: hostels.filter(h => h.verification_status === 'Pending Verification').length,
-      unverified: hostels.filter(h => h.verification_status === 'Unverified').length,
-      available: hostels.filter(h => h.availability_status === 'Available').length,
-      featured: hostels.filter(h => h.featured).length,
+      boysHostels: hostels.filter((h) => h.gender === 'Boys').length,
+      girlsHostels: hostels.filter((h) => h.gender === 'Girls').length,
+      verified: hostels.filter((h) => h.verification_status === 'Verified').length,
+      pendingVerification: hostels.filter((h) => h.verification_status === 'Pending Verification').length,
+      unverified: hostels.filter((h) => h.verification_status === 'Unverified').length,
+      available: hostels.filter((h) => h.availability_status === 'Available').length,
+      featured: hostels.filter((h) => h.featured).length,
       totalViews: hostels.reduce((acc, h) => acc + (h.listing_views || 0), 0),
       totalContactClicks: hostels.reduce((acc, h) => acc + (h.contact_clicks || 0), 0),
       totalWhatsappClicks: hostels.reduce((acc, h) => acc + (h.whatsapp_clicks || 0), 0),
       totalMapClicks: hostels.reduce((acc, h) => acc + (h.map_clicks || 0), 0),
       totalPhoneClicks: hostels.reduce((acc, h) => acc + (h.phone_clicks || 0), 0),
       totalLeads: leads.length,
-      newLeads: leads.filter(l => l.status === 'New').length,
-      convertedLeads: leads.filter(l => l.status === 'Converted').length,
+      newLeads: leads.filter((l) => l.status === 'New').length,
+      convertedLeads: leads.filter((l) => l.status === 'Converted').length,
     };
 
-    res.json({ success: true, data: stats });
+    res.json({ success: true, data: stats, default_lead_fee: db.default_lead_fee || 500 });
   } catch (err) {
     res.status(500).json({ error: 'Failed to calculate stats' });
   }
 });
 
-// Admin Leads API Endpoints
+// Admin Platform Config (Section 3: Configurable Lead Fee)
+app.patch('/api/admin/config', requireAdmin, (req: Request, res: Response) => {
+  try {
+    const { default_lead_fee } = req.body;
+    const db = getDatabase();
+    if (default_lead_fee !== undefined) {
+      db.default_lead_fee = Math.max(0, Number(default_lead_fee));
+    }
+    saveDatabase(db);
+    res.json({
+      success: true,
+      message: `Default qualified lead fee updated to PKR ${db.default_lead_fee}`,
+      default_lead_fee: db.default_lead_fee,
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: 'Failed to update config: ' + err.message });
+  }
+});
+
+// Admin Leads API Endpoints (Section 4 & 5: Dashboard and Hostel Assignment)
 app.get('/api/admin/leads', requireAdmin, (_req: Request, res: Response) => {
   try {
     const db = getDatabase();
     const leads = db.leads || [];
 
     const totalLeads = leads.length;
-    const newLeads = leads.filter(l => l.status === 'New').length;
-    const contacted = leads.filter(l => l.status === 'Contacted').length;
-    const assigned = leads.filter(l => l.status === 'Assigned').length;
-    const converted = leads.filter(l => l.status === 'Converted').length;
-    const notConverted = leads.filter(l => l.status === 'Not Converted').length;
-    const closed = leads.filter(l => l.status === 'Closed').length;
+    const newLeads = leads.filter((l) => l.status === 'New').length;
+    const contacted = leads.filter((l) => l.status === 'Contacted').length;
+    const assigned = leads.filter((l) => l.status === 'Assigned').length;
+    const converted = leads.filter((l) => l.status === 'Converted').length;
+    const notConverted = leads.filter((l) => l.status === 'Not Converted').length;
+    const closed = leads.filter((l) => l.status === 'Closed').length;
     const conversionRate = totalLeads > 0 ? Math.round((converted / totalLeads) * 100) : 0;
     const totalFeesEarned = leads
-      .filter(l => l.status === 'Converted' && l.fee_status === 'Paid')
+      .filter((l) => l.payment_status === 'Paid')
       .reduce((sum, l) => sum + (l.lead_fee || 0), 0);
     const pendingFees = leads
-      .filter(l => l.status === 'Converted' && l.fee_status === 'Pending')
+      .filter((l) => l.payment_status === 'Pending')
       .reduce((sum, l) => sum + (l.lead_fee || 0), 0);
 
     const metrics: LeadMetrics = {
@@ -888,6 +1041,7 @@ app.get('/api/admin/leads', requireAdmin, (_req: Request, res: Response) => {
       success: true,
       data: leads,
       metrics,
+      default_lead_fee: db.default_lead_fee || 500,
     });
   } catch (err: any) {
     res.status(500).json({ error: 'Failed to fetch leads: ' + err.message });
@@ -899,21 +1053,26 @@ app.patch('/api/admin/leads/:lead_id', requireAdmin, (req: Request, res: Respons
     const { lead_id } = req.params;
     const {
       status,
+      assigned_hostel,
+      hostel_id,
+      hostel_name,
       assigned_warden_name,
       assigned_warden_phone,
       assigned_warden_whatsapp,
       notes,
       lead_fee,
+      payment_status,
       fee_status,
       room_type,
       budget,
       area,
+      move_in_date,
     } = req.body;
 
     const db = getDatabase();
     if (!db.leads) db.leads = [];
 
-    const leadIndex = db.leads.findIndex(l => l.lead_id === lead_id);
+    const leadIndex = db.leads.findIndex((l) => l.lead_id === lead_id);
     if (leadIndex === -1) {
       return res.status(404).json({ error: 'Lead not found' });
     }
@@ -929,6 +1088,17 @@ app.patch('/api/admin/leads/:lead_id', requireAdmin, (req: Request, res: Respons
       lead.status = status;
     }
 
+    // Section 5: Hostel Lead Assignment ("Assign / Change Hostel")
+    if (assigned_hostel !== undefined) {
+      lead.assigned_hostel = assigned_hostel;
+      lead.hostel_name = assigned_hostel;
+    }
+    if (hostel_id !== undefined) lead.hostel_id = hostel_id;
+    if (hostel_name !== undefined) {
+      lead.hostel_name = hostel_name;
+      if (!assigned_hostel) lead.assigned_hostel = hostel_name;
+    }
+
     if (assigned_warden_name !== undefined) lead.assigned_warden_name = assigned_warden_name;
     if (assigned_warden_phone !== undefined) lead.assigned_warden_phone = assigned_warden_phone;
     if (assigned_warden_whatsapp !== undefined) lead.assigned_warden_whatsapp = assigned_warden_whatsapp;
@@ -936,10 +1106,20 @@ app.patch('/api/admin/leads/:lead_id', requireAdmin, (req: Request, res: Respons
 
     if (notes !== undefined) lead.notes = notes;
     if (lead_fee !== undefined) lead.lead_fee = Number(lead_fee);
-    if (fee_status !== undefined) lead.fee_status = fee_status;
+    
+    // Payment status tracking: Pending, Paid, Not Applicable (Section 4 & 5)
+    const effectivePayment = payment_status || fee_status;
+    if (effectivePayment !== undefined) {
+      const validPayments = ['Pending', 'Paid', 'Not Applicable', 'Waived'];
+      if (validPayments.includes(effectivePayment)) {
+        lead.payment_status = effectivePayment === 'Waived' ? 'Not Applicable' : effectivePayment;
+      }
+    }
+
     if (room_type !== undefined) lead.room_type = room_type;
     if (budget !== undefined) lead.budget = budget;
     if (area !== undefined) lead.area = area;
+    if (move_in_date !== undefined) lead.move_in_date = move_in_date;
 
     lead.updated_at = now;
 
@@ -961,51 +1141,58 @@ app.post('/api/admin/leads', requireAdmin, (req: Request, res: Response) => {
     const {
       visitor_name,
       visitor_phone,
+      phone,
       hostel_id,
       hostel_name,
+      assigned_hostel,
       gender,
       area,
       budget,
       room_type,
+      move_in_date,
       requirements,
       notes,
       status,
       assigned_warden_name,
       assigned_warden_phone,
       lead_fee,
+      payment_status,
     } = req.body;
 
-    if (!visitor_name || !visitor_phone) {
+    const contactPhone = phone || visitor_phone;
+    if (!visitor_name || !contactPhone) {
       return res.status(400).json({ error: 'Name and Phone are required' });
     }
 
     const db = getDatabase();
     if (!db.leads) db.leads = [...INITIAL_LEADS];
 
-    let counter = db.leadCounter || 1046;
-    counter += 1;
-    db.leadCounter = counter;
-    const leadId = `LS-${counter}`;
+    const leadId = generateLeadId(db);
+    const chosenHostel = assigned_hostel || hostel_name || 'Direct Phone Inquiry';
 
     const now = new Date().toISOString();
     const newLead: LeadItem = {
+      id: `lead_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
       lead_id: leadId,
       hostel_id: hostel_id || 'manual',
-      hostel_name: hostel_name || 'Direct Phone Inquiry',
+      hostel_name: chosenHostel,
+      assigned_hostel: chosenHostel,
       visitor_name: String(visitor_name).trim(),
-      visitor_phone: String(visitor_phone).trim(),
+      phone: String(contactPhone).trim(),
+      visitor_phone: String(contactPhone).trim(),
       gender: gender === 'Girls' ? 'Girls' : 'Boys',
-      area: area || 'Lahore',
-      budget: budget || 'Standard',
+      area: area || 'Johar Town',
+      budget: budget || 'PKR 12,000 – 18,000',
       room_type: room_type || 'Double',
+      move_in_date: move_in_date || '',
       requirements: Array.isArray(requirements) ? requirements : [],
-      source: 'Lahore Student Stay (Phone/Admin)',
+      source: 'Lahore Student Stay (Admin/Phone)',
       status: status || 'New',
       notes: notes || '',
       assigned_warden_name: assigned_warden_name || '',
       assigned_warden_phone: assigned_warden_phone || '',
-      lead_fee: lead_fee ? Number(lead_fee) : 0,
-      fee_status: 'Pending',
+      lead_fee: lead_fee !== undefined ? Number(lead_fee) : (db.default_lead_fee || 500),
+      payment_status: payment_status || 'Pending',
       created_at: now,
       updated_at: now,
     };
@@ -1026,7 +1213,7 @@ app.delete('/api/admin/leads/:lead_id', requireAdmin, (req: Request, res: Respon
     if (!db.leads) return res.status(404).json({ error: 'No leads found' });
 
     const beforeLen = db.leads.length;
-    db.leads = db.leads.filter(l => l.lead_id !== lead_id);
+    db.leads = db.leads.filter((l) => l.lead_id !== lead_id);
     if (db.leads.length === beforeLen) {
       return res.status(404).json({ error: 'Lead not found' });
     }
