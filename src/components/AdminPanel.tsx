@@ -70,7 +70,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   const [assignWardenName, setAssignWardenName] = useState<string>('');
   const [assignWardenPhone, setAssignWardenPhone] = useState<string>('');
   const [assignLeadFee, setAssignLeadFee] = useState<number>(1500);
-  const [assignFeeStatus, setAssignFeeStatus] = useState<'Pending' | 'Paid' | 'Waived'>('Pending');
+  const [assignFeeStatus, setAssignFeeStatus] = useState<'Pending' | 'Paid' | 'Waived' | 'Not Applicable'>('Pending');
   const [assignNotes, setAssignNotes] = useState<string>('');
   const [manualLeadModalOpen, setManualLeadModalOpen] = useState(false);
   const [manualLeadData, setManualLeadData] = useState({
@@ -173,7 +173,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     setAssignWardenName(lead.assigned_warden_name || '');
     setAssignWardenPhone(lead.assigned_warden_phone || '');
     setAssignLeadFee(lead.lead_fee || 1500);
-    setAssignFeeStatus(lead.fee_status || 'Pending');
+    setAssignFeeStatus(lead.fee_status || (lead.payment_status as any) || 'Pending');
     setAssignNotes(lead.notes || '');
   };
 
@@ -599,7 +599,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       return (
         l.lead_id.toLowerCase().includes(q) ||
         l.visitor_name.toLowerCase().includes(q) ||
-        l.visitor_phone.toLowerCase().includes(q) ||
+        (l.visitor_phone || l.phone || '').toLowerCase().includes(q) ||
         (l.hostel_name || '').toLowerCase().includes(q) ||
         l.area.toLowerCase().includes(q) ||
         (l.assigned_warden_name || '').toLowerCase().includes(q)
@@ -1014,7 +1014,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
                                 <button
                                   onClick={() => {
-                                    const wa = lead.visitor_phone.replace(/[^0-9]/g, '');
+                                    const rawPhone = lead.visitor_phone || lead.phone || '';
+                                    const wa = rawPhone.replace(/[^0-9]/g, '');
                                     const cleanWa = wa.startsWith('03') ? '92' + wa.substring(1) : wa;
                                     const msg = encodeURIComponent(
                                       `Assalam-o-Alaikum ${lead.visitor_name}, regarding your student hostel inquiry (${lead.lead_id}) for ${lead.hostel_name} on Lahore Student Stay:`

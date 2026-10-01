@@ -40,7 +40,14 @@ export const HostelCard: React.FC<HostelCardProps> = ({
   onClaimHostel,
   onContactHostel,
 }) => {
-  const hasValidPhoto = hostel.photos && hostel.photos.length > 0 && Boolean(hostel.photos[0].url);
+  const cardImageUrl = hostel.imageUrl || (hostel.photos && hostel.photos.length > 0 ? hostel.photos[0].url : '');
+  const hasValidPhoto = Boolean(cardImageUrl);
+
+  const imageAltText =
+    hostel.imageAlt ||
+    (hostel.imageType === 'illustrative-ai'
+      ? `Illustrative student accommodation image for ${hostel.name}, ${hostel.area}, Lahore`
+      : `Actual photo of ${hostel.name}, ${hostel.area}, Lahore`);
 
   const handlePhoneClick = () => {
     if (!hostel.phone) return;
@@ -93,12 +100,13 @@ export const HostelCard: React.FC<HostelCardProps> = ({
   return (
     <article className="group bg-white rounded-xl border border-neutral-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
       <div>
-        {/* Photo Container or Professional "Photo Not Available" Placeholder */}
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100">
+        {/* Photo Container (Section 8: 4:3 Aspect Ratio) */}
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100">
           {hasValidPhoto ? (
             <img
-              src={hostel.photos[0].url}
-              alt={`${hostel.name} student accommodation ${hostel.area}`}
+              src={cardImageUrl}
+              alt={imageAltText}
+              loading="lazy"
               className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
               referrerPolicy="no-referrer"
             />
@@ -109,6 +117,27 @@ export const HostelCard: React.FC<HostelCardProps> = ({
               area={hostel.area}
               aspect="card"
             />
+          )}
+
+          {/* Image Type Badge (Section 3, 7, 12, 13) */}
+          {hasValidPhoto && (
+            <div className="absolute bottom-2 right-3">
+              {hostel.imageType === 'illustrative-ai' ? (
+                <span
+                  className="px-2 py-0.5 text-[10px] font-semibold bg-neutral-950/75 backdrop-blur-sm text-neutral-200 rounded shadow-sm border border-white/10"
+                  title="Illustrative image — not an actual photo of this property."
+                >
+                  Illustrative image
+                </span>
+              ) : hostel.imageType === 'official' || hostel.imageType === 'official-social' ? (
+                <span
+                  className="px-2 py-0.5 text-[10px] font-semibold bg-emerald-950/80 backdrop-blur-sm text-emerald-300 rounded shadow-sm border border-emerald-500/20"
+                  title="Actual verified photograph of property"
+                >
+                  Verified Photo
+                </span>
+              ) : null}
+            </div>
           )}
 
           {/* Gender Indicator Flag */}

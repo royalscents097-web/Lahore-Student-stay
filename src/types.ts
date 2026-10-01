@@ -27,10 +27,15 @@ export interface NearbyUniversity {
   notes?: string;
 }
 
+export type ImageType = 'official' | 'official-social' | 'illustrative-ai';
+
 export interface HostelPhoto {
   url: string;
   caption: string;
-  category: 'Exterior' | 'Room' | 'Bathroom' | 'Mess' | 'Common Area' | 'Study Area' | 'Other';
+  category: 'Exterior' | 'Room' | 'Bathroom' | 'Mess' | 'Common Area' | 'Study Area' | 'Building' | 'Other';
+  photo_source?: string;
+  photo_source_url?: string;
+  image_type?: ImageType;
 }
 
 export interface PricingBreakdown {
@@ -106,6 +111,12 @@ export interface Hostel {
 
   // Media
   photos: HostelPhoto[];
+  imageUrl?: string;
+  imageSource?: string;
+  imageType?: ImageType;
+  imageSourceUrl?: string;
+  imageAlt?: string;
+  primary_photo?: string;
 
   // Verification & Metadata
   verification_status: VerificationStatus;
@@ -198,6 +209,7 @@ export interface LeadItem {
   status: LeadStatus;
   lead_fee: number; // Configurable lead fee (default: 500)
   payment_status: PaymentStatus; // 'Pending' | 'Paid' | 'Not Applicable'
+  fee_status?: PaymentStatus; // Optional alias for fee payment tracking
   assigned_hostel: string; // Connected hostel name
   notes?: string;
   assigned_warden_name?: string;

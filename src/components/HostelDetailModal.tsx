@@ -52,22 +52,46 @@ export const HostelDetailModal: React.FC<HostelDetailModalProps> = ({
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [copiedShare, setCopiedShare] = useState(false);
 
+  // Normalized photo list including primary imageUrl if photos array is empty
+  const allHostelPhotos = useMemo<HostelPhoto[]>(() => {
+    if (hostel.photos && hostel.photos.length > 0) {
+      return hostel.photos.filter((p) => Boolean(p.url));
+    }
+    if (hostel.imageUrl) {
+      return [
+        {
+          url: hostel.imageUrl,
+          caption:
+            hostel.imageAlt ||
+            (hostel.imageType === 'illustrative-ai'
+              ? `Illustrative student accommodation image for ${hostel.name}`
+              : `Actual photo of ${hostel.name}`),
+          category: 'Room',
+          photo_source: hostel.imageSource,
+          photo_source_url: hostel.imageSourceUrl,
+          image_type: hostel.imageType,
+        },
+      ];
+    }
+    return [];
+  }, [hostel]);
+
   // Gallery categories that actually have images (Requirement 2)
   const availableCategories = useMemo(() => {
-    if (!hostel.photos || hostel.photos.length === 0) return [];
+    if (allHostelPhotos.length === 0) return [];
     const cats = new Set<string>();
-    hostel.photos.forEach((p) => {
+    allHostelPhotos.forEach((p) => {
       if (p.url && p.category) cats.add(p.category);
     });
     return Array.from(cats);
-  }, [hostel.photos]);
+  }, [allHostelPhotos]);
 
   // Filtered photos based on selected category
   const filteredPhotos = useMemo(() => {
-    if (!hostel.photos || hostel.photos.length === 0) return [];
-    if (activeCategory === 'All') return hostel.photos.filter((p) => Boolean(p.url));
-    return hostel.photos.filter((p) => p.category === activeCategory && Boolean(p.url));
-  }, [hostel.photos, activeCategory]);
+    if (allHostelPhotos.length === 0) return [];
+    if (activeCategory === 'All') return allHostelPhotos;
+    return allHostelPhotos.filter((p) => p.category === activeCategory);
+  }, [allHostelPhotos, activeCategory]);
 
   const hasPhotos = filteredPhotos.length > 0;
 
@@ -231,6 +255,21 @@ export const HostelDetailModal: React.FC<HostelDetailModalProps> = ({
                     ))}
                   </div>
                 )}
+
+                {/* Section 3 & 7: Photo Transparency Disclaimer */}
+                {hostel.imageType === 'illustrative-ai' ? (
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-neutral-50 rounded-lg text-neutral-600 text-xs border border-neutral-200">
+                    <span className="font-semibold text-neutral-800">Notice:</span>
+                    <span>Illustrative image — not an actual photo of this property.</span>
+                  </div>
+                ) : hostel.imageType === 'official' || hostel.imageType === 'official-social' ? (
+                  <div className="flex items-center justify-between px-3 py-1.5 bg-emerald-50/70 rounded-lg text-emerald-950 text-xs border border-emerald-200">
+                    <span className="font-semibold text-emerald-900">Verified Hostel Photograph</span>
+                    {hostel.imageSource && (
+                      <span className="text-neutral-500 text-[11px]">Source: {hostel.imageSource}</span>
+                    )}
+                  </div>
+                ) : null}
               </div>
             ) : (
               <div className="space-y-2">

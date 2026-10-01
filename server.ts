@@ -223,18 +223,28 @@ function getDatabase(): DatabaseSchema {
     const raw = fs.readFileSync(DB_FILE, 'utf-8');
     const parsed = JSON.parse(raw);
     
-    // Ensure all hostels have pricing_breakdown and social fields from seed
+    // Ensure all hostels have pricing_breakdown, social fields, and image metadata
     const seedMap = new Map(INITIAL_HOSTELS.map(h => [h.id, h]));
-    const mergedHostels: Hostel[] = (parsed.hostels || INITIAL_HOSTELS).map((h: Hostel) => {
+    const existingIds = new Set((parsed.hostels || []).map((h: Hostel) => h.id));
+
+    const updatedExisting: Hostel[] = (parsed.hostels || INITIAL_HOSTELS).map((h: Hostel) => {
       const seed = seedMap.get(h.id);
       return {
         ...h,
+        imageUrl: h.imageUrl || seed?.imageUrl || (h.photos?.[0]?.url ?? ''),
+        imageType: h.imageType || seed?.imageType || 'illustrative-ai',
+        imageSource: h.imageSource || seed?.imageSource || '',
+        imageSourceUrl: h.imageSourceUrl || seed?.imageSourceUrl || '',
+        imageAlt: h.imageAlt || seed?.imageAlt || '',
         pricing_breakdown: h.pricing_breakdown || seed?.pricing_breakdown,
         instagram: h.instagram ?? seed?.instagram ?? '',
         facebook: h.facebook ?? seed?.facebook ?? '',
         website: h.website ?? seed?.website ?? '',
       };
     });
+
+    const newFromSeed = INITIAL_HOSTELS.filter(h => !existingIds.has(h.id));
+    const mergedHostels: Hostel[] = [...updatedExisting, ...newFromSeed];
 
     const defaultLeadFee = Number(parsed.default_lead_fee) || 500;
     const mappedLeads: LeadItem[] = (parsed.leads || INITIAL_LEADS).map((l: any, idx: number) => {
@@ -320,6 +330,8 @@ function requireAdmin(req: Request, res: Response, next: NextFunction) {
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use('/images', express.static(path.resolve(process.cwd(), 'public/images')));
+app.use('/src/assets/images', express.static(path.resolve(process.cwd(), 'src/assets/images')));
 
 // Health Check Endpoint (Section 36)
 app.get('/health', (_req: Request, res: Response) => {
